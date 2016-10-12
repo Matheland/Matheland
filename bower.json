@@ -1,0 +1,11 @@
+{
+  "name": "Matheland",
+  "homepage": "https://github.com/Matheland/Matheland",
+  "dependencies": {
+    "TweenJS": "createjs-tweenjs#^0.6.2",
+    "EaselJS": "easeljs#^0.8.2",
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "flexboxgrid": "^6.3.2"
+  }
+}
