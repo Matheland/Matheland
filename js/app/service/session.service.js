@@ -22,6 +22,7 @@
 
         service.initialize = initialize;
         service.saveSession = saveSession;
+        service.update = update;
         service.getSession = getSession;
         service.isDirty = isDirty;
 
@@ -43,12 +44,17 @@
         }
 
         function createSession() {
-            saveSession(DEFAULT_SESSION);
+            service.session = DEFAULT_SESSION;
+            saveSession();
         }
 
-        function saveSession(session) {
-            var item = JSON.stringify(session);
+        function saveSession() {
+            var item = JSON.stringify(service.session);
             storage.setItem(ITEM_NAME, item);
+        }
+
+        function update(session) {
+            service.session = session;
         }
 
         function getSession() {
