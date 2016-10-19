@@ -1,7 +1,6 @@
 (function () {
     'use strict';
 
-
     angular
         .module('matheland.run')
         .run(run);
