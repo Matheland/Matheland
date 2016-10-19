@@ -4,7 +4,8 @@
         'ui.router',
         'matheland.service',
         'matheland.controller',
-        'matheland.run'
+        'matheland.run',
+        'matheland.constant'
     ];
 
     angular.module('matheland', DEPENDENCIES);
