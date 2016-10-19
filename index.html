@@ -1,28 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" ng-app="matheland">
 <head>
     <meta charset="UTF-8">
     <title>Marioland</title>
 
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="bower_components/flexboxgrid/dist/flexboxgrid.min.css">
 </head>
 <body>
-<div class="wrapper">
-    <header class="header">
-        <button class="buttonplace"> Speichern &amp; beenden</button>
+    <div class="wrapper">
+        <header class="header">
+            <button class="buttonplace">Speichern &amp; beenden</button>
 
-        <span class="spanheaderplace">Welt {{welt}}</span>
+            <span class="spanheaderplace">Welt {{welt}}</span>
 
-    </header>
+        </header>
 
-    <article class="main">
-        <div>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</div>
-    </article>
+        <div ui-view></div>
 
-    <footer class="footer">Footer</footer>
-</div>
+        <footer class="footer">Footer</footer>
+    </div>
 
-
-    <div></div>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 </body>
 </html>
