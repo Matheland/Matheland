@@ -4,22 +4,58 @@
     <meta charset="UTF-8">
     <title>Marioland</title>
 
-    <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="bower_components/flexboxgrid/dist/flexboxgrid.min.css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+
 </head>
 <body>
-    <div class="wrapper">
-        <header class="header">
-            <button class="buttonplace">Speichern &amp; beenden</button>
+<div class="row">
+    <div class="col-xs-4 first-xs">
+        <div class="box">
+            <button>speichern&beenden</button>
 
-            <span class="spanheaderplace">Welt {{welt}}</span>
-
-        </header>
-
-        <div ui-view></div>
-
-        <footer class="footer">Footer</footer>
+        </div>
     </div>
+    <div class="col-xs-4">
+        <div class="box">
+            <span>GRAFIK FÜR DIE NIEMAND ZUSTÄNDIG IST LAUT FERTL</span>
+
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="box">
+            <span> Welt</span>
+        </div>
+    </div>
+ </div>
+
+        <div ui-view>
+
+
+        </div>
+
+        <footer class="footer">
+            <div class="row">
+                <div class="col-xs-4 first-xs">
+                    <div class="box">
+                        <button>speichern&beenden</button>
+
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="box">
+                        <span>GRAFIK FÜR DIE NIEMAND ZUSTÄNDIG IST LAUT FERTL</span>
+
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="box">
+                        <span> Welt</span>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
 
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
