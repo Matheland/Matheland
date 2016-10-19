@@ -20,15 +20,18 @@
             })
             .state('functions', {
                 url: '/functions',
-                templateUrl: 'templates/functions.html'
+                templateUrl: 'templates/functions.html',
+                permission: 'functions'
             })
             .state('vectors', {
                 url: '/vectors',
-                templateUrl: 'templates/vectors.html'
+                templateUrl: 'templates/vectors.html',
+                permission: 'vectors'
             })
             .state('text', {
                 url: '/text',
-                templateUrl: 'templates/text.html'
+                templateUrl: 'templates/text.html',
+                permission: 'text'
             });
     }
 
