@@ -19,6 +19,7 @@
                 var session = Session.getSession();
                 var state = session.page;
                 var params = {
+                    page: state,
                     difficulty: session.difficulty
                 };
                 redirectToState(trans, state, params);
