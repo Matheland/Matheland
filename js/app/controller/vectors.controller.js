@@ -8,7 +8,7 @@
     function VectorsController($stateParams, Forwarder, Ticker) {
 
         var vm = this;
-        vm.submit = submit();
+        vm.submit = submit;
 
         var game = {
             objects: {
