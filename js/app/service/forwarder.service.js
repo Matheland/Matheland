@@ -20,6 +20,8 @@
             if (task === Task.TEXT) {
                 if (difficulty === Difficulty.HARD) {
                     Session.destroySession();
+                    $state.go('start');
+                    return;
                 } else {
                     difficulty++;
                 }
