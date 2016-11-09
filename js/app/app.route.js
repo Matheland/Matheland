@@ -26,7 +26,9 @@
             .state('vectors', {
                 url: '/vectors',
                 templateUrl: 'templates/vectors.html',
-                permission: 'vectors'
+                permission: 'vectors',
+                controller: 'VectorsController',
+                controllerAs: 'vm'
             })
             .state('text', {
                 url: '/text',
