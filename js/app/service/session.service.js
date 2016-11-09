@@ -21,6 +21,7 @@
         var storage = $window.localStorage;
 
         service.initialize = initialize;
+        service.destroySession = destroySession;
         service.saveSession = saveSession;
         service.update = update;
         service.getSession = getSession;
@@ -31,7 +32,7 @@
             if (session) {
                 service.session = session;
             } else {
-                createSession();
+                destroySession();
             }
         }
 
@@ -43,7 +44,7 @@
             return JSON.parse(item);
         }
 
-        function createSession() {
+        function destroySession() {
             service.session = DEFAULT_SESSION;
             saveSession();
         }
