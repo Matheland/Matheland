@@ -2,8 +2,8 @@
     'use strict';
 
     var Task = {
-        VECTOR: 'vectors',
-        FUNCTION: 'functions',
+        VECTORS: 'vectors',
+        FUNCTIONS: 'functions',
         TEXT: 'text'
     };
 
