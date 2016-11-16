@@ -1,7 +1,7 @@
 (function() {
 
     angular.module('matheland')
-        .config(config);
+        .run(config);
 
     config.$inject = ['Session'];
 
