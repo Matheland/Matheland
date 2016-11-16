@@ -9,3 +9,8 @@ div {
 .spanheaderplace {
     float: right;
 }
+
+.header {
+    height: 64px;
+    background-color: red;
+}
