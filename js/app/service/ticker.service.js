@@ -14,7 +14,9 @@
         service.stop = stop;
 
         function start(stage, init) {
-            var onTick = stage.update;
+            var onTick = function() {
+                stage.update();
+            };
             if (init) {
                 onTick = function() {
                     init();
