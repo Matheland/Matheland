@@ -33,7 +33,9 @@
             .state('text', {
                 url: '/text',
                 templateUrl: 'templates/text.html',
-                permission: 'text'
+                permission: 'text',
+                controller: 'TextController',
+                controllerAs: 'vm'
             });
     }
 

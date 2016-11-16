@@ -3,16 +3,13 @@
             .module('matheland.controller')
             .controller('StartController', StartController);
 
-        function StartController($scope, $state, Difficulty) {
+        function StartController() {
 
-            $scope.startGame = startGame();
+            $scope.startGame = startGame;
 
             function startGame() {
-                $state.go('functions',{
-                    $difficulty: Difficulty.EASY
-                });
             }
 
         }
     }
-)()
+)();

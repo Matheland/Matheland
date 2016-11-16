@@ -9,17 +9,16 @@
 
 </head>
 <body>
-    <div class="row header">
+    <div class="row">
         <div class="col-xs-4 first-xs">
             <div class="box">
                 <button>speichern&beenden</button>
-
+                <a ui-sref="text">Zum Textbeispiel</a>
             </div>
         </div>
         <div class="col-xs-4">
             <div class="box">
-                <span>WELTENGRAFIK</span>
-
+                <span>GRAFIK FÜR DIE NIEMAND ZUSTÄNDIG IST LAUT FERTL</span>
             </div>
         </div>
         <div class="col-xs-4">
@@ -29,11 +28,24 @@
         </div>
      </div>
 
-    <div ui-view>
+    <div ui-view></div>
 
-    </div>
+    <script src="bower_components/EaselJS/lib/easeljs-0.8.2.combined.js"></script>
+    <script src="bower_components/TweenJS/lib/tweenjs-0.6.2.combined.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="js/app/app.js"></script>
+    <script src="js/app/app.config.js"></script>
+    <script src="js/app/app.route.js"></script>
+    <script src="js/app/run/transition.run.js"></script>
+    <script src="js/app/constant/difficulty.constant.js"></script>
+    <script src="js/app/constant/task.constant.js"></script>
+    <script src="js/app/service/forwarder.service.js"></script>
+    <script src="js/app/service/session.service.js"></script>
+    <script src="js/app/service/ticker.service.js"></script>
+    <script src="js/app/controller/text.controller.js"></script>
+    <script src="js/app/controller/vectors.controller.js"></script>
+    <script src="js/app/controller/start.controller.js"></script>
 
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 </body>
 </html>

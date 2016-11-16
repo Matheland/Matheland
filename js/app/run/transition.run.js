@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular
+    /*angular
         .module('matheland.run')
         .run(run);
 
@@ -32,6 +32,6 @@
             return trans.router.stateService.target(state, params, {location: 'replace'});
         }
 
-    }
+    }*/
 
 })();

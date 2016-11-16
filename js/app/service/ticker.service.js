@@ -13,9 +13,16 @@
         service.start = start;
         service.stop = stop;
 
-        function start(stage) {
+        function start(stage, init) {
+            var onTick = stage.update;
+            if (init) {
+                onTick = function() {
+                    init();
+                    stage.update();
+                }
+            }
             ticker.framerate = 60;
-            ticker.addEventListener('tick', stage.update);
+            ticker.addEventListener('tick', onTick);
         }
 
         function stop() {

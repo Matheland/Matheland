@@ -2,13 +2,11 @@
 
     var DEPENDENCIES = [
         'ui.router',
-        'matheland.service',
-        'matheland.controller',
         'matheland.run',
-        'matheland.constant'
+        'matheland.service',
+        'matheland.constant',
+        'matheland.controller'
     ];
-
-    angular.module('matheland', DEPENDENCIES);
 
     for (var i = 0; i < DEPENDENCIES.length; i++) {
         var dependency = DEPENDENCIES[i];
@@ -17,5 +15,7 @@
             angular.module(dependency, []);
         }
     }
+
+    angular.module('matheland', DEPENDENCIES);
 
 })();
