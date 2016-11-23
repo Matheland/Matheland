@@ -3,11 +3,15 @@
             .module('matheland.controller')
             .controller('StartController', StartController);
 
-        function StartController() {
+        StartController.$inject = ['Forwarder'];
 
-            $scope.startGame = startGame;
+        function StartController(Forwarder) {
+            var vm = this;
+
+            vm.startGame = startGame;
 
             function startGame() {
+                Forwarder.forward();
             }
 
         }

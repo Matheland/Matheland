@@ -8,6 +8,8 @@
         'matheland.controller'
     ];
 
+    angular.module('matheland', DEPENDENCIES);
+
     for (var i = 0; i < DEPENDENCIES.length; i++) {
         var dependency = DEPENDENCIES[i];
         var packages = dependency.split('.');
@@ -15,7 +17,5 @@
             angular.module(dependency, []);
         }
     }
-
-    angular.module('matheland', DEPENDENCIES);
 
 })();
