@@ -1,3 +1,16 @@
+@CHARSET "UTF-8";
+
+@font-face {
+    font-family: SuperMario256;
+    src: url('SuperMario256.ttf') format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+body {
+    background-image: url('../images/background_supermario.png');
+    color: white;
+}
+
 div {
     height: 500px;
 }
@@ -10,7 +23,27 @@ div {
     float: right;
 }
 
-.header {
+header {
     height: 64px;
-    background-color: red;
+    font-family: SuperMario256;
 }
+
+.matheland {
+    text-align: center;
+    font-family: SuperMario256;
+    font-size: 50px;
+}
+
+#descriptionStart {
+    text-align: center;
+}
+
+#weltAnzeige {
+    text-align: right;
+    font-family: SuperMario256;
+}
+/*
+#goButton {
+    text-align: center;
+}
+*/
