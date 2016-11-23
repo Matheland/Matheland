@@ -38,10 +38,15 @@ header {
     text-align: center;
 }
 
-#weltAnzeige {
-    text-align: right;
+.weltAnzeige {
     font-family: SuperMario256;
+    text-align: center;
 }
+
+#buttonsuz {
+    margin-left: 30px;
+}
+
 
 .marked {
     background-color: yellow;
