@@ -47,6 +47,27 @@ header {
     margin-left: 30px;
 }
 
+
+.marked {
+    background-color: yellow;
+    color: black;
+    border-radius: 2px 0 0 2px;
+}
+
+.marked + .marked {
+    border-radius: 0;
+}
+
+.marked.last {
+    border-radius: 0 2px 2px 0;
+}
+
+#text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2em;
+    letter-spacing: 0.03em;
+}
+
 /*
 #goButton {
     text-align: center;
