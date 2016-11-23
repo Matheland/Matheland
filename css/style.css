@@ -72,7 +72,7 @@ header {
 */
 
 
-#btn:hover {
+#LosButton:hover {
     background: #FF3333 ;
     text-decoration: none;
 }
