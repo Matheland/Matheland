@@ -43,7 +43,10 @@ header {
     text-align: center;
 }
 
-
+#text_textinput {
+    position: relative;
+    margin-top: 22px;
+}
 
 .marked {
     background-color: yellow;
