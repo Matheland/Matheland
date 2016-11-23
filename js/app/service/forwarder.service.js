@@ -16,8 +16,8 @@
         service.forward = forward;
 
         function forward(params) {
-            var page = Task.TEXT;
-            var difficulty = 0;
+            var page = PAGES[0];
+            var difficulty = Difficulty.EASY;
             if (params) {
                 var task = params.page;
                 difficulty = params.difficulty;

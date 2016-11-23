@@ -14,4 +14,11 @@
     <div class="col-md-12">
         <canvas id="canvas" width="720" height="300"></canvas>
     </div>
+    <div>
+        <p id="text">
+            <span id="text-{{ $index }}" ng-repeat="char in vm.game.displayText track by $index">{{ char }}</span>
+        </p>
+        <button ng-click="vm.submit()">Fertig</button>
+        <button ng-click="vm.reset()">Zurücksetzen</button>
+    </div>
 </div>

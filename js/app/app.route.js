@@ -16,17 +16,21 @@
         $stateProvider
             .state('start', {
                 url: '/start',
-                templateUrl: 'templates/start.html'
+                templateUrl: 'templates/start.html',
+                controller: 'StartController',
+                controllerAs: 'vm'
             })
             .state('functions', {
                 url: '/functions',
                 templateUrl: 'templates/functions.html',
-                permission: 'functions'
+                permission: 'functions',
+                params: {'page': null, 'difficulty': null}
             })
             .state('vectors', {
                 url: '/vectors',
                 templateUrl: 'templates/vectors.html',
                 permission: 'vectors',
+                params: {'page': null, 'difficulty': null},
                 controller: 'VectorsController',
                 controllerAs: 'vm'
             })
@@ -34,6 +38,7 @@
                 url: '/text',
                 templateUrl: 'templates/text.html',
                 permission: 'text',
+                params: {'page': null, 'difficulty': null},
                 controller: 'TextController',
                 controllerAs: 'vm'
             });
