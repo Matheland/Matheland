@@ -5,28 +5,31 @@
     <title>Marioland</title>
 
     <link rel="stylesheet" href="bower_components/flexboxgrid/dist/flexboxgrid.min.css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
-    <div class="row">
-        <div class="col-xs-4 first-xs">
+    <header class="row">
+        <div class="col-xs-4 first-xs col-md-4 col-lg-4">
             <div class="box">
-                <button>speichern&beenden</button>
+                <div id="buttonsuz"><button>speichern&beenden</button></div>
                 <a ui-sref="text">Zum Textbeispiel</a>
+                <a ui-sref="vectors">Zum Vectorbeispiel</a>
+                <a ui-sref="functions">Zum Funktionsbeispiel</a>
+                <a ui-sref="start">Zum Start</a>
             </div>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-4 col-md-4 col-lg-4">
             <div class="box">
-                <span>GRAFIK FÜR DIE NIEMAND ZUSTÄNDIG IST LAUT FERTL</span>
+                <div class="weltAnzeige"><span>WELTENGRAFIK</span></div>
             </div>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-4 col-md-4 col-lg-4">
             <div class="box">
-                <span> Welt</span>
+                <div class="weltAnzeige"><span>Welt</span></div>
             </div>
         </div>
-     </div>
+     </header>
 
     <div ui-view></div>
 
