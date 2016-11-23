@@ -43,9 +43,6 @@ header {
     text-align: center;
 }
 
-#buttonsuz {
-    margin-left: 30px;
-}
 
 
 .marked {
@@ -80,7 +77,10 @@ header {
     text-decoration: none;
 }
 
-#btn{
+#LosButton{
+    margin:auto;
+    display:block;
+    align-content: center;
     -webkit-border-radius: 60;
     -moz-border-radius: 60;
     border-radius: 60px;
@@ -96,7 +96,8 @@ header {
     text-decoration: none;
 }
 
-#btn2 {
+#SBButton {
+    margin-left: 30px;
     font-family: Arial;
     color: #FFFFFF;
     font-size: 14px;
