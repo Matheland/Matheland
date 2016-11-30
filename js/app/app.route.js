@@ -24,7 +24,9 @@
                 url: '/functions',
                 templateUrl: 'templates/functions.html',
                 permission: 'functions',
-                params: {'page': null, 'difficulty': null}
+                params: {'page': null, 'difficulty': null},
+                controller: 'FunctionsController',
+                controllerAs: 'vm'
             })
             .state('vectors', {
                 url: '/vectors',
