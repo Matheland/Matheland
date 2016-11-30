@@ -115,3 +115,11 @@ header {
 #text_loesung {
     color: black;
 }
+
+.zeichnenButton{
+    margin-top:10px;
+}
+#kleinesDiv{
+    margin-top:10px;
+    height: 30px;
+}

@@ -2,12 +2,26 @@
     <div class="col-md-4 col-md-offset-1">
         <h1>{{ ueberschriftVektor }}</h1>
         <p>{{ beschreibungVektor }}</p>
-        <input type="button" value="Lösung anzeigen">
-    </div>
-    <div class="col-md-4 col-md-offset-1">
-        <input type="text">
+        <table border="0" cellpadding="0" cellspacing="0" style="background-color:#003399; border:1px solid #353535; border-radius:3px;">
+            <tr>
+                <td align="center" valign="middle" style="color:#FFFFFF; font-family:Helvetica, Arial, sans-serif; font-size:14px; font-weight:bold; letter-spacing:-.3px; line-height:100%; padding-top:15px; padding-right:30px; padding-bottom:15px; padding-left:30px;">
+                    <a href="#" target="_blank" style="color:#FFFFFF; text-decoration:none;">Lösung anzeigen</a>
+                </td>
+            </tr>
+        </table>    </div>
+    <div class="col-md-4 col-md-offset-1" align="center">
+        <span>X-Wert:</span> <input type="text"> <br />
+        <div id="kleinesDiv">
+            <span>Y-Wert: </span> <input type="text">
+        </div>
         <div ng-show="anzeigen()">
-            <button>Zeichnen</button>
+            <table  id="zeichnenButton" border="0" cellpadding="0" cellspacing="0" style="background-color:#003399; border:1px solid #353535; border-radius:3px;">
+                <tr>
+                    <td align="center" valign="middle" style="color:#FFFFFF; font-family:Helvetica, Arial, sans-serif; font-size:14px; font-weight:bold; letter-spacing:-.3px; line-height:100%; padding-top:15px; padding-right:30px; padding-bottom:15px; padding-left:30px;">
+                        <a href="#" target="_blank" style="color:#FFFFFF; text-decoration:none;">Zeichnen</a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="col-md-12">
