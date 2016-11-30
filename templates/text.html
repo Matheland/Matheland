@@ -2,15 +2,8 @@
     <div class="col-md-4 col-md-offset-1">
         <h1>{{ ueberschriftText }}</h1>
         <p>{{ beschreibungText }}</p>
-        <input type="button" value="Lösung anzeigen">
     </div>
-    <div id="text_textinput" class="col-md-4 col-md-offset-1">
-        <span id="text_loesung">Antwort: </span><input type="text">
-        <div ng-show="anzeigen()">
-            <button>?</button>
-            <span>Formel zum Einsetzen</span>
-        </div>
-    </div>
+
     <div class="col-md-12">
         <canvas id="canvas" width="720" height="300"></canvas>
     </div>
@@ -20,5 +13,20 @@
         </p>
         <button ng-click="vm.submit()">Fertig</button>
         <button ng-click="vm.reset()">Zurücksetzen</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <input type="button" value="Lösung anzeigen">
+    </div>
+
+    <div class="col-md-6">
+        <span id="text_loesung">Antwort: </span><input type="text">
+    </div>
+
+    <div ng-show="anzeigen()">
+        <button>?</button>
+        <span>Formel zum Einsetzen</span>
     </div>
 </div>
