@@ -7,7 +7,7 @@
     font-weight: normal;
 }
 body {
-    background-image: url('../images/background_supermario.png');
+    background-color:#5D94FB;
     color: white;
 }
 
@@ -43,10 +43,10 @@ header {
     text-align: center;
 }
 
-#buttonsuz {
-    margin-left: 30px;
+#text_textinput {
+    position: relative;
+    margin-top: 22px;
 }
-
 
 .marked {
     background-color: yellow;
@@ -73,3 +73,45 @@ header {
     text-align: center;
 }
 */
+
+
+#LosButton:hover {
+    background: #FF3333 ;
+    text-decoration: none;
+}
+
+#LosButton{
+    margin:auto;
+    display:block;
+    align-content: center;
+    -webkit-border-radius: 60;
+    -moz-border-radius: 60;
+    border-radius: 60px;
+    -webkit-box-shadow: 0px 3px 0px #666666;
+    -moz-box-shadow: 0px 3px 0px #666666;
+    box-shadow: 0px 3px 0px #666666;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 24px;
+    background: #0066CC;
+    padding: 10px 20px 10px 20px;
+    border: solid #ffffff 4px;
+    text-decoration: none;
+}
+
+#SBButton {
+    margin-left: 30px;
+    font-family: Arial;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-border-radius: 60;
+    -moz-border-radius: 60;
+    border-radius: 60px;
+    background: #003399;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+#text_loesung {
+    color: black;
+}
