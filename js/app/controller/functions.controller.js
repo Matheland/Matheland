@@ -12,9 +12,19 @@
 
         var game = {
             objects: {
-                pipes: []
+                coord: {
+                    x: {},
+                    y: {}
+                }
+            },
+            func: {
+                a: null,
+                c: null
             }
         };
+
+        var STRETCH_FACTOR_X = 3; //normal (1=1) x coordinates, but 1=1/3 y coordinates
+        var APEX = 10;
 
         init();
 
@@ -54,116 +64,177 @@
             stone.y = height;
 
             game.stage.addChild(stone);
+            setFunction(1, 0);
+            console.log(game.func);
+            drawFunction();
+            console.log(generateFunction({x: -2, y: 3}, {x: 0, y: 1}));
+            drawCoordinateSystem(CanvasConfig.WIDTH / 2, CanvasConfig.HEIGHT, STRETCH_FACTOR_X, 1);
+        }
 
-            // var numberOfObstacles = $stateParams.difficulty + 2;
-            var numberOfObstacles = 1 + 2;
+        function drawCoordinateSystem(cx, cy, xf, yf) {
+            //Prep
+            xf = xf || 1;
+            yf = yf || 1;
 
-            // var pipeMinHeight = 3 - Math.floor($stateParams.difficulty / 3);
-            var pipeMinHeight = 3 - Math.floor(1 / 3);
-            var coordinateSize = CanvasConfig.COORDINATE_SIZE;
-            // var yOrigin = 6;
-
-            // ------------------------------------------------------------------------------------------------------ //
-
-            // Create shell
-            var shellGraphics = new easel.Graphics();
-
-            shellGraphics
-                .beginFill('#F34C32')
-                .arc(
-                    0,
-                    0,
-                    coordinateSize / 2,
-                    0,
-                    Math.PI * 2
-                );
-
-            var shell = new easel.Shape(shellGraphics);
-
-            shell.setBounds(
-                -coordinateSize,
-                -coordinateSize,
-                coordinateSize * 2,
-                coordinateSize * 2
-            );
-
-            shell.x = coordinateSize;
-            shell.y = coordinateSize * 4; //+ yOrigin;
-
-            game.objects.shell = shell;
-            game.stage.addChild(shell);
-
-            // ------------------------------------------------------------------------------------------------------ //
-
-            // Create pipes
-            var remainingSpacingForPipes = 14 - numberOfObstacles;
-
-            for (var i = 0; i < numberOfObstacles; i++) {
-                var pipeWidth = coordinateSize;
-                var pipeHeight = (Math.floor(Math.random() * 3) + pipeMinHeight) * coordinateSize;
-                var pipeFromAbove = Math.round(Math.random());
-                var x = coordinateSize;
-                var y = pipeFromAbove ? 0 /* yOrigin */ : CanvasConfig.HEIGHT; //- yOrigin;
-
-                if (i) {
-                    var randomSpacing = (Math.floor(Math.random() * 3) + 2);
-
-                    while (remainingSpacingForPipes - randomSpacing < 0) {
-                        randomSpacing--;
-                    }
-
-                    x += game.objects.pipes[game.objects.pipes.length - 1].x + randomSpacing * x;
-                } else {
-                    if (Math.round(Math.random())) {
-                        x = x * 5;
-                        remainingSpacingForPipes--;
-                    } else {
-                        x = x * 4;
-                    }
+            //Init
+            var stage = game.stage;
+            var height = CanvasConfig.HEIGHT;
+            var width = CanvasConfig.WIDTH;
+            var sizeX = Math.floor(CanvasConfig.COORDINATE_SIZE * xf);
+            var sizeY = Math.floor(CanvasConfig.COORDINATE_SIZE * yf);
+            var minX = cx - Math.floor(cx / sizeX) * sizeX;
+            var fakeCY = toRealY(cy);
+            var minY = fakeCY - Math.floor(fakeCY / sizeY) * sizeY;
+            var graphics = {
+                grid: new easel.Graphics(),
+                x: {
+                    main: new easel.Graphics(),
+                    labels: []
+                },
+                y: {
+                    main: new easel.Graphics(),
+                    labels: []
                 }
+            };
 
-                var pipeGraphics = new easel.Graphics();
+            var UD_TICK_LENGTH = 4;
+            var grid = graphics.grid;
+            var mainX = graphics.x.main;
+            var mainY = graphics.y.main;
+            var labelsX = graphics.x.labels;
+            var labelsY = graphics.y.labels;
+            grid.setStrokeStyle(0.75, 'round');
+            mainX.setStrokeStyle(2, 'round');
+            mainY.setStrokeStyle(2, 'round');
 
-                pipeGraphics
-                    .beginFill('#79FB73')
-                    .drawRect(
-                        0,
-                        0,
-                        pipeWidth,
-                        pipeHeight
-                    );
-
-                var pipe = new easel.Shape(pipeGraphics);
-
-                pipe.setBounds(0, 0, pipeWidth, pipeHeight);
-                pipe.x = x;
-                pipe.y = pipeFromAbove ? y : y - pipeHeight;
-
-                game.objects.pipes.push(pipe);
-                game.stage.addChild(pipe);
+            //Grid, Ticks und Labels
+            for (var x = minX; x <= width; x += sizeX) {
+                grid
+                    .beginStroke('#DDD')
+                    .moveTo(x, 0)
+                    .lineTo(x, height)
+                    .endStroke();
+                mainX
+                    .beginStroke('#000')
+                    .moveTo(x, cy + UD_TICK_LENGTH)
+                    .lineTo(x, cy - UD_TICK_LENGTH)
+                    .endStroke();
+                var rx = (x - cx) / sizeX;
+                if (rx == 0) continue;
+                var label = new easel.Text('' + rx, 'bold 14px Arial', '#333');
+                label.x = x + 10;
+                label.y = cy - 20;
+                label.textAlign = 'center';
+                labelsX.push(label);
+            }
+            for (var y = minY; y <= height; y += sizeY) {
+                var realY = toRealY(y);
+                grid
+                    .beginStroke('#DDD')
+                    .moveTo(0, realY)
+                    .lineTo(width, realY)
+                    .endStroke();
+                mainY
+                    .beginStroke('#000')
+                    .moveTo(cx + UD_TICK_LENGTH, realY)
+                    .lineTo(cx - UD_TICK_LENGTH, realY)
+                    .endStroke();
+                var ry = (cy - realY) / sizeY;
+                var label = new easel.Text('' + ry, 'bold 14px Arial', '#333');
+                label.x = cx + 10;
+                label.y = realY - 20;
+                label.textAlign = 'center';
+                labelsY.push(label);
             }
 
-            // ------------------------------------------------------------------------------------------------------ //
+            //Achsen
+            mainX
+                .beginStroke('#000')
+                .moveTo(0, cy)
+                .lineTo(width, cy)
+                .endStroke();
+            mainY
+                .beginStroke('#000')
+                .moveTo(cx, 0)
+                .lineTo(cx, height)
+                .endStroke();
 
-            // Create goal
-            var goalGraphics = new easel.Graphics();
+            //TODO: Undergrid, X-Achse zeichnen, Y-Achse zeichnen, X-Ticks/Labels, Y-Ticks/Labels
 
-            goalGraphics
-                .beginFill('#000000')
-                .arc(
-                    0,
-                    0,
-                    coordinateSize / 2,
-                    0,
-                    Math.PI * 2
-                );
+            //Finish
+            var coord = game.objects.coord;
+            coord.grid = new easel.Shape(graphics.grid);
+            coord.x.main = new easel.Shape(graphics.x.main);
+            coord.x.labels = graphics.x.labels;
+            coord.y.main = new easel.Shape(graphics.y.main);
+            coord.y.labels = graphics.y.labels;
+            game.stage.addChild(coord.grid);
+            game.stage.addChild(coord.x.main);
+            game.stage.addChild(coord.y.main);
+            for (var i = 0; i < coord.x.labels.length; i++) {
+                game.stage.addChild(coord.x.labels[i]);
+            }
+            for (var j = 0; j < coord.y.labels.length; j++) {
+                game.stage.addChild(coord.y.labels[j]);
+            }
+        }
 
-            var goal = new easel.Shape(goalGraphics);
-            goal.x = coordinateSize * 19;
-            goal.y = coordinateSize * 4; //+ yOrigin;
+        function toRealY(rawY) {
+            return CanvasConfig.HEIGHT - rawY;
+        }
 
-            game.objects.goal = goal;
-            game.stage.addChild(game.objects.goal);
+        function generateFunction(cliff, coin) {
+            var deltaY = cliff.y - coin.y;
+            var deltaF = Math.pow(cliff.x, 2) - Math.pow(coin.x, 2);
+            var rawA = deltaY / deltaF;
+            var a = Math.round(rawA * 10) / 10;
+            var rawC = cliff.y - rawA * Math.pow(cliff.x, 2);
+            var c = Math.round(rawC);
+            return {
+                a: a,
+                c: c
+            };
+        }
+
+        function setFunction(a, c) {
+            game.func = {
+                a: a,
+                c: c
+            };
+        }
+
+        function drawFunction() {
+            var RANGE_START = 0;
+            var RANGE_END = 20;
+            var PRECISION = 0.2;
+            var LINE_THICKNESS = 4;
+            var graphics = new easel.Graphics().setStrokeStyle(LINE_THICKNESS);
+            graphics.lineTo(getCoords(RANGE_START), callFunction(RANGE_START - APEX)).beginStroke('#FF5555');
+            for (var xrc = RANGE_START - APEX; xrc <= RANGE_END - APEX; xrc += PRECISION) {
+                var xc = Math.round(xrc * 100) / 100;
+                var x = getCoords(STRETCH_FACTOR_X * xc + APEX);
+                var yc = callFunction(xc);
+                var y = getCoords(yc, true);
+                x = Math.round(x);
+                y = Math.round(y);
+                graphics.lineTo(x, y);
+            }
+            var line = new easel.Shape(graphics);
+            game.stage.addChild(line);
+            line.x = 0;
+            line.y = 0;
+        }
+
+        function getCoords(v, negative) {
+            if (negative) {
+                var yCoords = CanvasConfig.HEIGHT / CanvasConfig.COORDINATE_SIZE;
+                v = yCoords - v;
+            }
+            return v * CanvasConfig.COORDINATE_SIZE;
+        }
+
+        function callFunction(x) {
+            return game.func.a * Math.pow(x, 2) + game.func.c;
         }
 
         function submit(relativeX, relativeY) {
