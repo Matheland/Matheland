@@ -114,9 +114,10 @@ header {
 .zeichnenButton{
     margin-top:10px;
 }
-#kleinesDiv{
-    margin-top:10px;
-    height: 30px;
+
+.divBeschreibung {
+    width: 400px;
+    height: 250px;
 }
 
 .buttonAdd{
