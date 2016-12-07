@@ -12,7 +12,7 @@ body {
 }
 
 div {
-    height: 500px;
+    height: 340px;
 }
 
 .buttonplace {
@@ -146,4 +146,9 @@ header {
 .text_hilfebtn {
     padding: 5px;
     height: 20px;
+}
+
+#canvas {
+    display: block;
+    margin: auto;
 }
