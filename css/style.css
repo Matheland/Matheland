@@ -6,9 +6,18 @@
     font-style: normal;
     font-weight: normal;
 }
+
+@font-face {
+    font-family: ChronoType;
+    src: url('ChronoType.ttf') format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
 body {
     background-color:#5D94FB;
     color: white;
+    font-family: ChronoType;
 }
 
 div {
