@@ -116,9 +116,16 @@ header {
 }
 
 .divBeschreibung {
-    width: 400px;
+    width: 100px;
     height: 250px;
+    overflow: auto;
 }
+
+.divheadline {
+    width: 300px;
+    height: 60px;
+}
+
 
 .buttonAdd{
     background-color: #003399; /* Vordergrundfarbe laut CD */
@@ -131,4 +138,9 @@ header {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+.text_hilfebtn {
+    padding: 5px;
+    height: 20px;
 }
