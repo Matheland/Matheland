@@ -131,7 +131,8 @@ header {
 
 .buttonAdd{
     background-color: #003399; /* Vordergrundfarbe laut CD */
-    border: none;
+    border:solid;
+    border-radius:12px;
     color: white;
     padding: 15px 32px;
     text-align: center;
