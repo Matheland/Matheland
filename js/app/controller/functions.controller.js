@@ -41,14 +41,6 @@
             var size = CanvasConfig.COORDINATE_SIZE;
             var height = CanvasConfig.HEIGHT;
 
-            // stoneGraphics
-            //     .lineTo(size, height)
-            //     .beginFill('#555555')
-            //     .lineTo(size, size * 2)
-            //     .arc(size * 2, size * 2, size / 2, Math.PI, 0);
-            //     //.lineTo(size * 2, height)
-            //     //.lineTo(size, height);
-
             var thickness = size;
 
             stoneGraphics
@@ -159,8 +151,6 @@
                 .lineTo(cx, height)
                 .endStroke();
 
-            //TODO: Undergrid, X-Achse zeichnen, Y-Achse zeichnen, X-Ticks/Labels, Y-Ticks/Labels
-
             //Finish
             var coord = game.objects.coord;
             coord.grid = new easel.Shape(graphics.grid);
@@ -237,26 +227,13 @@
             return game.func.a * Math.pow(x, 2) + game.func.c;
         }
 
-        function submit(relativeX, relativeY) {
-            tween
-                .get(game.objects.shell)
-                .to(
-                    relativeX
-                )
-                .call(checkWinCondition);
-        }
-
-        function checkWinCondition() {
+        function submit() {
             // Check if the center of the shell is in the center of the goal
-            if (game.objects.goal.hitTest(game.objects.shell.x, game.objects.shell.y)) {
+            if (true) {
                 Ticker.stop();
                 window.alert("gg ez");
                 Forwarder.forward($stateParams);
             }
-        }
-
-        function collisionDetection() {
-
         }
     }
 
