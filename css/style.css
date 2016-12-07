@@ -12,7 +12,7 @@ body {
 }
 
 div {
-    height: 500px;
+    height: 340px;
 }
 
 .buttonplace {
@@ -36,6 +36,8 @@ header {
 
 #descriptionStart {
     text-align: center;
+    font-size: 17pt;
+    line-height: 30pt;
 }
 
 .weltAnzeige {
@@ -79,8 +81,8 @@ header {
     margin:auto;
     display:block;
     align-content: center;
-    -webkit-border-radius: 60;
-    -moz-border-radius: 60;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
     border-radius: 60px;
     -webkit-box-shadow: 0px 3px 0px #666666;
     -moz-box-shadow: 0px 3px 0px #666666;
@@ -99,8 +101,8 @@ header {
     font-family: Arial;
     color: #FFFFFF;
     font-size: 14px;
-    -webkit-border-radius: 60;
-    -moz-border-radius: 60;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
     border-radius: 60px;
     background: #003399;
     padding: 10px 20px 10px 20px;
@@ -114,7 +116,39 @@ header {
 .zeichnenButton{
     margin-top:10px;
 }
-#kleinesDiv{
-    margin-top:10px;
-    height: 30px;
+
+.divBeschreibung {
+    width: 100px;
+    height: 250px;
+    overflow: auto;
+}
+
+.divheadline {
+    width: 300px;
+    height: 60px;
+}
+
+
+.buttonAdd{
+    background-color: #003399; /* Vordergrundfarbe laut CD */
+    border:solid;
+    border-radius:12px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.text_hilfebtn {
+    padding: 5px;
+    height: 20px;
+}
+
+#canvas {
+    display: block;
+    margin: auto;
 }
