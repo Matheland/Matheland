@@ -19,7 +19,13 @@
         var game = {
             objects: {
                 pipes: []
-            }
+            },
+            coordinates: {
+                x: [],
+                y: [],
+                xOrigin: 0,
+                yOrigin: 6,
+            },
         };
 
         init();
