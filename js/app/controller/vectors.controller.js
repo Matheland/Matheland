@@ -113,7 +113,7 @@
                 var pipeHeight = (Math.floor(Math.random() * 3) + pipeMinHeight) * coordinateSize;
                 var pipeFromAbove = Math.round(Math.random());
                 var x = coordinateSize;
-                var y = pipeFromAbove ? 0 /* yOrigin */ : CanvasConfig.HEIGHT; //- yOrigin;
+                var y = pipeFromAbove ? yOrigin : CanvasConfig.NUMBER_OF_Y_COORDINATES * CanvasConfig.COORDINATE_SIZE;
 
                 if (i) {
                     var randomSpacing = (Math.floor(Math.random() * 3) + 2);
