@@ -245,6 +245,81 @@
 
                 var collided = checkCollision(x, y);
 
+                if (collided) {
+                    tween.removeTweens(shell);
+                    game.mightCollide = false;
+
+                    // Find closest coordinate
+                    var closestCoordinates = [
+                        {
+                            possibilities: game.coordinates.x,
+                            value: oldCoordinates[0],
+                            delta: Infinity
+                        },
+                        {
+                            possibilities: game.coordinates.y,
+                            value: oldCoordinates[1],
+                            delta: Infinity
+                        }
+                    ];
+
+                    var finalCoordinates = {
+                        x: null,
+                        y: null
+                    };
+
+                    for (var a = 0; a < closestCoordinates.length; a++) {
+                        for (var b = 0; b < closestCoordinates[a].possibilities.length; b++) {
+                            var delta = Math.abs(oldCoordinates[a] - closestCoordinates[a].possibilities[b]);
+
+                            if (delta < closestCoordinates[a].delta) {
+                                closestCoordinates[a].value = closestCoordinates[a].possibilities[b];
+                                closestCoordinates[a].delta = delta;
+                            }
+                        }
+                    }
+
+                    if (checkCollision(closestCoordinates[0].value, closestCoordinates[1].value)) {
+                        var yMovementOnly = oldTweenSteps.p1.x == oldTweenSteps.p0.x;
+                        var xMovementOnly = oldTweenSteps.p1.y == oldTweenSteps.p0.y;
+                        var isInverseX = oldTweenSteps.p1.x - oldTweenSteps.p0.x < 0;
+                        var isInverseY = oldTweenSteps.p1.y - oldTweenSteps.p0.y < 0;
+
+                        if (yMovementOnly) {
+                            finalCoordinates.x = closestCoordinates[0].value;
+                            finalCoordinates.y = closestCoordinates[1].value - CanvasConfig.COORDINATE_SIZE * (isInverseY ? -1 : 1);
+                        } else if (xMovementOnly) {
+                            finalCoordinates.x = closestCoordinates[0].value - CanvasConfig.COORDINATE_SIZE * (isInverseX ? -1 : 1);
+                            finalCoordinates.y = closestCoordinates[1].value;
+                        } else {
+                            finalCoordinates.x = closestCoordinates[0].value - CanvasConfig.COORDINATE_SIZE * (isInverseX ? -1 : 1);
+                            finalCoordinates.y = closestCoordinates[1].value + CanvasConfig.COORDINATE_SIZE * (isInverseY ? -1 : 1);
+
+                            if (finalCoordinates.y <= game.coordinates.yOrigin) {
+                                finalCoordinates.y = game.coordinates.y[0];
+                            } else if (finalCoordinates.y > game.coordinates.y[game.coordinates.y.length - 1]) {
+                                finalCoordinates.y = game.coordinates.y[game.coordinates.y.length - 1];
+                            }
+                        }
+                    } else {
+                        finalCoordinates.x = closestCoordinates[0].value;
+                        finalCoordinates.y = closestCoordinates[1].value;
+                    }
+
+                    console.log("Final X:", finalCoordinates.x, "Final Y:", finalCoordinates.y);
+
+                    var t = tween
+                        .get(game.objects.shell)
+                        .to({
+                                x: finalCoordinates.x,
+                                y: finalCoordinates.y
+                            },
+                            500,
+                            easel.Ease.getPowOut(2.5)
+                        );
+
+                    t.call(checkWinCondition, [t]);
+                }
             }
         }
     }
