@@ -160,5 +160,8 @@ header {
 #canvas {
     display: block;
     margin: auto;
+}
+
+.vectorsCanvas {
     background-color: mediumseagreen;
 }
