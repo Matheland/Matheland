@@ -51,7 +51,7 @@
             // var pipeMinHeight = 3 - Math.floor($stateParams.difficulty / 3);
             var pipeMinHeight = 3 - Math.floor(1 / 3);
             var coordinateSize = CanvasConfig.COORDINATE_SIZE;
-            // var yOrigin = 6;
+            var yOrigin = game.coordinates.yOrigin;
 
             // ------------------------------------------------------------------------------------------------------ //
 
