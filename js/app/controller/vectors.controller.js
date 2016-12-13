@@ -194,7 +194,7 @@
                     500,
                     easel.Ease.getPowOut(2.5)
                 )
-                .call(checkWinCondition);
+                .call(checkWinCondition, [t]);
 
             game.tween = t;
         }
