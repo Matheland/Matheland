@@ -234,7 +234,18 @@
         }
 
         function collisionDetection() {
+            if (game.mightCollide) {
+                var shell = game.objects.shell;
+                var oldCoordinates = [shell.x, shell.y];
 
+                var x = oldCoordinates[0];
+                var y = oldCoordinates[1];
+
+                var oldTweenSteps = game.tween._steps[0];
+
+                var collided = checkCollision(x, y);
+
+            }
         }
     }
 
