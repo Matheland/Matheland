@@ -204,6 +204,33 @@
             }
         }
 
+        function checkCollision(x, y) {
+            x = Math.ceil(x);
+            y = Math.ceil(y);
+            if (
+                x <= game.coordinates.xOrigin ||
+                y <= game.coordinates.yOrigin ||
+                x > game.coordinates.x[game.coordinates.x.length - 1] ||
+                y > game.coordinates.y[game.coordinates.y.length - 1]
+            ) {
+                return true;
+            } else {
+                for (var i = 0; i < game.objects.pipes.length; i++) {
+                    var pipe = game.objects.pipes[i];
+                    var pt = pipe.globalToLocal(x, y);
+
+                    pt.x = !pt.x ? pt.x : pt.x - 1;
+                    pt.y = !pt.y ? pt.y : pt.y - 1;
+
+                    if (pipe.hitTest(pt.x, pt.y)) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         function collisionDetection() {
 
         }
