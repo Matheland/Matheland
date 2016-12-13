@@ -145,9 +145,9 @@
 
                 var pipe = new easel.Shape(pipeGraphics);
 
-                pipe.setBounds(0, 0, pipeWidth, pipeHeight);
+                pipe.setBounds(-1, -1, pipeWidth + 2, pipeHeight + 2);
                 pipe.x = x;
-                pipe.y = pipeFromAbove ? y : y - pipeHeight;
+                pipe.y = pipeFromAbove ? y : y - pipeHeight + yOrigin;
 
                 game.objects.pipes.push(pipe);
                 game.stage.addChild(pipe);
