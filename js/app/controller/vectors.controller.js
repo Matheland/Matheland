@@ -25,6 +25,7 @@
                 y: [],
                 xOrigin: 0,
                 yOrigin: 6,
+                lastSafeCoordinates: null
             },
             mightCollide: false,
             tween: null
