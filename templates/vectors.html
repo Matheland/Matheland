@@ -23,9 +23,9 @@
                                 </div>
                             </div>
                             <div class="col-md-3 col-xs-3">
-                                <input type="text">
-                                <input type="text">
-                                <button class="buttonAdd"> Zeichnen </button>
+                                <input id="inputX" type="number" ng-model="vm.input.x" ng-value="vm.input.x" required>
+                                <input id="inputY" type="number" ng-model="vm.input.y" ng-value="vm.input.y" required>
+                                <input type="submit" class="buttonAdd" value="Zeichnen">
                             </div>
                         </form>
                     </div>
