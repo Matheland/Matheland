@@ -36,7 +36,7 @@
         function init() {
             game.stage = new easel.Stage(CanvasConfig.ID);
 
-            Ticker.start(game.stage);
+            Ticker.start(game.stage, collisionDetection);
             createBoard();
         }
         
