@@ -160,4 +160,5 @@ header {
 #canvas {
     display: block;
     margin: auto;
+    background-color: mediumseagreen;
 }
