@@ -181,13 +181,22 @@
             game.stage.setChildIndex(game.objects.shell, game.stage.getNumChildren() - 1);
         }
 
-        function submit(relativeX, relativeY) {
-            tween
-                .get(game.objects.shell)
-                .to(
-                    relativeX
+        function submit() {
+            var t = tween.get(game.objects.shell);
+
+            game.mightCollide = true;
+
+            t
+                .to({
+                        x: vm.input.x * CanvasConfig.COORDINATE_SIZE + t.target.x,
+                        y: vm.input.y * CanvasConfig.COORDINATE_SIZE + t.target.y
+                    },
+                    500,
+                    easel.Ease.getPowOut(2.5)
                 )
                 .call(checkWinCondition);
+
+            game.tween = t;
         }
 
         function checkWinCondition(t) {
