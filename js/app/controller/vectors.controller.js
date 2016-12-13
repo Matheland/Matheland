@@ -170,7 +170,7 @@
 
             var goal = new easel.Shape(goalGraphics);
             goal.x = coordinateSize * 19;
-            goal.y = coordinateSize * 4; //+ yOrigin;
+            goal.y = middleY;
 
             game.objects.goal = goal;
             game.stage.addChild(game.objects.goal);
