@@ -26,6 +26,7 @@
                 xOrigin: 0,
                 yOrigin: 6,
             },
+            mightCollide: false,
         };
 
         init();
