@@ -188,9 +188,16 @@
                 .call(checkWinCondition);
         }
 
-        function checkWinCondition() {
+        function checkWinCondition(t) {
+            game.mightCollide = false;
+            t.removeAllEventListeners();
+
+            var shell = t.target;
+            var goal = game.objects.goal;
+            var position = goal.globalToLocal(shell.x, shell.y);
+
             // Check if the center of the shell is in the center of the goal
-            if (game.objects.goal.hitTest(game.objects.shell.x, game.objects.shell.y)) {
+            if (goal.hitTest(position.x, position.y)) {
                 Ticker.stop();
                 window.alert("gg ez");
                 Forwarder.forward($stateParams);
