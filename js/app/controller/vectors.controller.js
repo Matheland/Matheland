@@ -53,6 +53,23 @@
             var coordinateSize = CanvasConfig.COORDINATE_SIZE;
             var yOrigin = game.coordinates.yOrigin;
 
+            // Fill coordinates array with ... well, coordinates
+            for (
+                var crdX = CanvasConfig.COORDINATE_SIZE;
+                crdX <= (CanvasConfig.NUMBER_OF_X_COORDINATES - 1) * CanvasConfig.COORDINATE_SIZE;
+                crdX += CanvasConfig.COORDINATE_SIZE
+            ) {
+                game.coordinates.x.push(crdX);
+            }
+
+            for (
+                var crdY = CanvasConfig.COORDINATE_SIZE;
+                crdY <= (CanvasConfig.NUMBER_OF_Y_COORDINATES - 1) * CanvasConfig.COORDINATE_SIZE;
+                crdY += CanvasConfig.COORDINATE_SIZE
+            ) {
+                game.coordinates.y.push(crdY + yOrigin);
+            }
+
             // ------------------------------------------------------------------------------------------------------ //
 
             // Create shell
