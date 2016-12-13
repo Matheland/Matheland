@@ -8,6 +8,7 @@
     function VectorsController($stateParams, Forwarder, Ticker, CanvasConfig) {
 
         var vm = this;
+
         vm.submit = submit;
 
         var game = {
@@ -32,6 +33,7 @@
             MEDIUM  ->  four obstacles
             HARD    ->  five obstacles
              */
+
             // var numberOfObstacles = $stateParams.difficulty + 2;
             var numberOfObstacles = 1 + 2;
 
