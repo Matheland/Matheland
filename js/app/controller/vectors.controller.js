@@ -27,6 +27,7 @@
                 yOrigin: 6,
             },
             mightCollide: false,
+            tween: null
         };
 
         init();
