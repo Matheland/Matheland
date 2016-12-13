@@ -70,6 +70,9 @@
                 game.coordinates.y.push(crdY + yOrigin);
             }
 
+            // Define middle
+            var middleY = game.coordinates.y[Math.floor(game.coordinates.y.length / 2)];
+
             // ------------------------------------------------------------------------------------------------------ //
 
             // Create shell
@@ -95,7 +98,7 @@
             );
 
             shell.x = coordinateSize;
-            shell.y = coordinateSize * 4; //+ yOrigin;
+            shell.y = middleY;
 
             game.objects.shell = shell;
             game.stage.addChild(shell);
