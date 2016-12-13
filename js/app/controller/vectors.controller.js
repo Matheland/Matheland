@@ -174,6 +174,8 @@
 
             game.objects.goal = goal;
             game.stage.addChild(game.objects.goal);
+
+            game.stage.setChildIndex(game.objects.shell, game.stage.getNumChildren() - 1);
         }
 
         function submit(relativeX, relativeY) {
