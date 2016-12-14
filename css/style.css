@@ -165,3 +165,9 @@ header {
 .vectorsCanvas {
     background-color: mediumseagreen;
 }
+.border {
+    background-color: darkred;
+    width: 550pt;
+    height: 240pt;
+    padding: 25px 25px 10px 25px;
+}
