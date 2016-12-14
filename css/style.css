@@ -49,9 +49,13 @@ header {
     line-height: 30pt;
 }
 
-.weltAnzeige {
+.weltenGrafik {
     font-family: SuperMario256;
     text-align: center;
+}
+
+.weltAnzeige {
+    direction: rtl;
 }
 
 .marked {
@@ -130,6 +134,7 @@ header {
     width: 100px;
     height: 250px;
     overflow: auto;
+    font-size: 20pt;
 }
 
 .divheadline {
@@ -169,5 +174,9 @@ header {
     background-color: darkred;
     width: 550pt;
     height: 240pt;
-    padding: 25px 25px 10px 25px;
+    padding: 30px 25px 10px 25px;
+}
+
+.fontSize {
+    font-size: 20pt;
 }
