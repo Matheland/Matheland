@@ -28,7 +28,8 @@
         }
 
         function stop() {
-            ticker.reset();
+            ticker._inited = false;
+            ticker.removeAllEventListeners();
         }
 
     }

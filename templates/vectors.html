@@ -1,13 +1,15 @@
 <div class="row">
     <div class="col-md-10 col-xs-10 col-xs-offset-1 col-md-offset-1">
-        <div class="row col-md-11 col-xs-10">
-            <div>
+        <div class="row">
+            <div class="col-lg-offset-1 col-md-offset-1 col-lg-11 col-md-11 col-xs-10">
                 <h1 class="headline">Panzer-Minigolf</h1>
                 <div class="row">
                     <div class="col-md-6 col-xs-6">
-                        <span class="fontSize">Achtung! Du musst den Panzer in das Loch schießen!
-                    Verwende dabei dein Wissen von Vektoren und schieße mit den Koordinaten X und Y den Panzer ins Loch! Das Eingabefeld dafür findest zu hier gleich rechts!
-                    Wenn du gegen ihn die klebrige Wand schießt prallt er nur ganz wenig ab, also pass auf! </span>
+                        <span class="fontSize">
+                            Achtung! Du musst den Panzer in das Loch schießen!
+                            Verwende dabei dein Wissen von Vektoren und schieße mit den Koordinaten X und Y den Panzer ins Loch! Das Eingabefeld dafür findest zu hier gleich rechts!
+                            Wenn du gegen ihn die klebrige Wand schießt prallt er nur ganz wenig ab, also pass auf!
+                        </span>
                         <div class="row">
                             <div class="col-md-3 col-xs-3">
                                 <button class="buttonAdd"> Lösung anzeigen </button>
@@ -18,8 +20,8 @@
                         <form class="row" ng-submit="vm.submit()">
                             <div class="row ">
                                 <div class="col-md-8 col-xs-8">
-                                    <label for="inputX">X-Wert:</label>
-                                    <label for="inputY">Y-Wert:</label>
+                                    <label for="inputX" class="fontSize">X-Wert:</label>
+                                    <label for="inputY" class="fontSize">Y-Wert:</label>
                                 </div>
                             </div>
                             <div class="col-md-3 col-xs-3">
@@ -34,7 +36,9 @@
         </div>
 
     </div>
-    <div class="col-md-12">
-        <canvas id="canvas" width="720" height="300" class="vectorsCanvas"></canvas>
+    <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6">
+        <div class="border">
+            <canvas id="canvas" width="720" height="300" class="vectorsCanvas"></canvas>
+        </div>
     </div>
 </div>
