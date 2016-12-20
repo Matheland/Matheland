@@ -115,20 +115,24 @@
 
             var marioc = {
                 x: (mario.x - CanvasConfig.WIDTH / 2) / (size * STRETCH_FACTOR_X),
-                y: (height - mario.y) / size
+                y: (height - mario.y) / size,
+                height: marioHeight / size,
+                width: 2 * marioFitness / size
             };
             game.objects.mario.coords = marioc;
 
             var coinc = {
                 x: (coin.x - CanvasConfig.WIDTH / 2) / (size * STRETCH_FACTOR_X),
-                y: (height - coin.y) / size
+                y: (height - coin.y) / size,
+                height: coinHeight / size,
+                width: 2 * coinThickness / size
             };
             game.objects.coin.coords = coinc;
 
             setFunction(marioc, coinc);
 
             drawCoordinateSystem(CanvasConfig.WIDTH / 2, CanvasConfig.HEIGHT, STRETCH_FACTOR_X, 1);
-            drawFunction();
+            //drawFunction();
         }
 
         function drawCoordinateSystem(cx, cy, xf, yf) {
@@ -244,11 +248,12 @@
         function generateFunction(head, coin) {
             var deltaY = head.y - coin.y;
             var deltaF = Math.pow(head.x, 2) - Math.pow(coin.x, 2);
-            var rawA = deltaY / deltaF;
-            var rawC = head.y - rawA * Math.pow(head.x, 2);
+            var a = deltaY / deltaF;
+            var c = head.y - a * Math.pow(head.x, 2);
+            console.log(a, c);
             return {
-                a: rawA,
-                c: rawC
+                a: a,
+                c: c
             };
         }
 
@@ -277,6 +282,7 @@
             game.stage.addChild(line);
             line.x = 0;
             line.y = 0;
+            game.objects.line = line;
         }
 
         function getCoords(v, negative) {
@@ -291,10 +297,40 @@
             return func.a * Math.pow(x, 2) + func.c;
         }
 
-        function submit() {
+        function checkWinCondition() {
             var input = vm.input;
-            var yAtCoin = callFunction(input, game.objects.coin.x);
-            drawFunction(input);
+
+            var coin = game.objects.coin.coords;
+            var pathYCoin = callFunction(input, coin.x);
+            var lowerLimitCoin = coin.y - coin.height;
+            var coinOnPath = lowerLimitCoin <= pathYCoin && pathYCoin <= coin.y;
+
+            var mario = game.objects.mario.coords;
+            var pathYMario = callFunction(input, mario.x);
+            var lowerLimitMario = mario.y - mario.height;
+            var marioOnPath = lowerLimitMario <= pathYMario && pathYMario <= mario.y;
+
+            return {
+                coinHit: coinOnPath,
+                marioHit: marioOnPath,
+                win: coinOnPath && marioOnPath,
+                missedBoth: !(coinOnPath || marioOnPath)
+            };
+        }
+
+        function submit() {
+            var result = checkWinCondition();
+            game.stage.removeChild(game.objects.line);
+            drawFunction(vm.input);
+            if (result.win) {
+                alert("Glückwunsch! Du hast es geschafft!");
+                Ticker.stop();
+                Forwarder.forward($stateParams);
+            } else if (!result.marioHit) {
+                alert("An dieser Liane wird sich Mario nicht festhalten können");
+            } else if (!result.coinHit) {
+                alert("Mario kann zwar die Liane greifen, verfehlt aber die Münze.");
+            }
             // if (true) {
             //     Ticker.stop();
             //     window.alert("gg ez");
