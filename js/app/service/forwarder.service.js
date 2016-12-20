@@ -10,8 +10,7 @@
     function Forwarder(Task, Difficulty, $state, Session) {
         var service = this;
 
-        //var PAGES = [Task.FUNCTIONS, Task.VECTORS, Task.TEXT];
-        var PAGES = [Task.TEXT];
+        var PAGES = [Task.FUNCTIONS, Task.VECTORS, Task.TEXT];
 
         service.forward = forward;
 
