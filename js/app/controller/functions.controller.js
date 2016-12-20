@@ -23,6 +23,11 @@
             }
         };
 
+        vm.input = {
+            a: 1,
+            c: 0
+        };
+
         var STRETCH_FACTOR_X = 3; //normal (1=1) x coordinates, but 1=1/3 y coordinates
         var APEX = 10;
 
@@ -43,11 +48,17 @@
 
             var thickness = size;
 
+            var marioHeight = size;
+
+            var maxHeight = height - marioHeight - thickness;
+
+            var stoneHeight = Math.floor(Math.random() * maxHeight);
+
             stoneGraphics
-                .lineTo(-thickness, 0)
+                .moveTo(-thickness, 0)
                 .beginFill('#555555')
-                .lineTo(-thickness, 3 * thickness - height)
-                .arc(0, 3 * thickness - height, thickness, Math.PI, 0)
+                .lineTo(-thickness, -stoneHeight)
+                .arc(0, -stoneHeight, thickness, Math.PI, 0)
                 .lineTo(thickness, 0)
                 .lineTo(-thickness, 0);
 
@@ -56,11 +67,68 @@
             stone.y = height;
 
             game.stage.addChild(stone);
-            setFunction(1, 0);
-            console.log(game.func);
-            drawFunction();
-            console.log(generateFunction({x: -2, y: 3}, {x: 0, y: 1}));
+
+            var riverHeight = size / 2;
+
+            var riverGraphics = new easel.Graphics();
+
+            riverGraphics
+                .beginFill('#7777aa')
+                .drawRect(0, 0, CanvasConfig.WIDTH, riverHeight);
+
+            var river = new easel.Shape(riverGraphics);
+            river.y = height - riverHeight / 2;
+
+            game.stage.addChild(river);
+
+            var marioFitness = Math.floor(0.25 * size);
+
+            var marioGraphics = new easel.Graphics();
+
+            marioGraphics
+                .beginFill('#dd0000')
+                .drawRect(-marioFitness, 0, 2 * marioFitness, marioHeight);
+
+            var mario = new easel.Shape(marioGraphics);
+            mario.x = stone.x;
+            mario.y = height - stoneHeight - thickness - marioHeight;
+
+            game.stage.addChild(mario);
+            game.objects.mario = mario;
+
+            var coinThickness = marioFitness;
+            var coinHeight = marioHeight;
+
+            var coinGraphics = new easel.Graphics();
+
+            coinGraphics
+                .beginFill('#dddd77')
+                .drawEllipse(-coinThickness, 0, 2 * coinThickness, coinHeight);
+
+            var coin = new easel.Shape(coinGraphics);
+            coin.x = CanvasConfig.WIDTH / 4 + Math.random() * CanvasConfig.WIDTH / 2;
+            var minCoinHeight = riverHeight + marioHeight;
+            coin.y = height - (minCoinHeight + Math.random() * ((height - mario.y) - minCoinHeight - coinHeight / 2));
+
+            game.stage.addChild(coin);
+            game.objects.coin = coin;
+
+            var marioc = {
+                x: (mario.x - CanvasConfig.WIDTH / 2) / (size * STRETCH_FACTOR_X),
+                y: (height - mario.y) / size
+            };
+            game.objects.mario.coords = marioc;
+
+            var coinc = {
+                x: (coin.x - CanvasConfig.WIDTH / 2) / (size * STRETCH_FACTOR_X),
+                y: (height - coin.y) / size
+            };
+            game.objects.coin.coords = coinc;
+
+            setFunction(marioc, coinc);
+
             drawCoordinateSystem(CanvasConfig.WIDTH / 2, CanvasConfig.HEIGHT, STRETCH_FACTOR_X, 1);
+            drawFunction();
         }
 
         function drawCoordinateSystem(cx, cy, xf, yf) {
@@ -158,14 +226,14 @@
             coord.x.labels = graphics.x.labels;
             coord.y.main = new easel.Shape(graphics.y.main);
             coord.y.labels = graphics.y.labels;
-            game.stage.addChild(coord.grid);
-            game.stage.addChild(coord.x.main);
-            game.stage.addChild(coord.y.main);
+            stage.addChild(coord.grid);
+            stage.addChild(coord.x.main);
+            stage.addChild(coord.y.main);
             for (var i = 0; i < coord.x.labels.length; i++) {
-                game.stage.addChild(coord.x.labels[i]);
+                stage.addChild(coord.x.labels[i]);
             }
             for (var j = 0; j < coord.y.labels.length; j++) {
-                game.stage.addChild(coord.y.labels[j]);
+                stage.addChild(coord.y.labels[j]);
             }
         }
 
@@ -173,37 +241,33 @@
             return CanvasConfig.HEIGHT - rawY;
         }
 
-        function generateFunction(cliff, coin) {
-            var deltaY = cliff.y - coin.y;
-            var deltaF = Math.pow(cliff.x, 2) - Math.pow(coin.x, 2);
+        function generateFunction(head, coin) {
+            var deltaY = head.y - coin.y;
+            var deltaF = Math.pow(head.x, 2) - Math.pow(coin.x, 2);
             var rawA = deltaY / deltaF;
-            var a = Math.round(rawA * 10) / 10;
-            var rawC = cliff.y - rawA * Math.pow(cliff.x, 2);
-            var c = Math.round(rawC);
+            var rawC = head.y - rawA * Math.pow(head.x, 2);
             return {
-                a: a,
-                c: c
+                a: rawA,
+                c: rawC
             };
         }
 
-        function setFunction(a, c) {
-            game.func = {
-                a: a,
-                c: c
-            };
+        function setFunction(headc, coinc) {
+            game.func = generateFunction(headc, coinc);
         }
 
-        function drawFunction() {
+        function drawFunction(func) {
+            func = func || game.func;
             var RANGE_START = 0;
             var RANGE_END = 20;
             var PRECISION = 0.2;
             var LINE_THICKNESS = 4;
             var graphics = new easel.Graphics().setStrokeStyle(LINE_THICKNESS);
-            graphics.lineTo(getCoords(RANGE_START), callFunction(RANGE_START - APEX)).beginStroke('#FF5555');
+            graphics.lineTo(getCoords(RANGE_START), callFunction(func, RANGE_START - APEX)).beginStroke('#FF5555');
             for (var xrc = RANGE_START - APEX; xrc <= RANGE_END - APEX; xrc += PRECISION) {
                 var xc = Math.round(xrc * 100) / 100;
                 var x = getCoords(STRETCH_FACTOR_X * xc + APEX);
-                var yc = callFunction(xc);
+                var yc = callFunction(func, xc);
                 var y = getCoords(yc, true);
                 x = Math.round(x);
                 y = Math.round(y);
@@ -223,17 +287,19 @@
             return v * CanvasConfig.COORDINATE_SIZE;
         }
 
-        function callFunction(x) {
-            return game.func.a * Math.pow(x, 2) + game.func.c;
+        function callFunction(func, x) {
+            return func.a * Math.pow(x, 2) + func.c;
         }
 
         function submit() {
-            // Check if the center of the shell is in the center of the goal
-            if (true) {
-                Ticker.stop();
-                window.alert("gg ez");
-                Forwarder.forward($stateParams);
-            }
+            var input = vm.input;
+            var yAtCoin = callFunction(input, game.objects.coin.x);
+            drawFunction(input);
+            // if (true) {
+            //     Ticker.stop();
+            //     window.alert("gg ez");
+            //     Forwarder.forward($stateParams);
+            // }
         }
     }
 
