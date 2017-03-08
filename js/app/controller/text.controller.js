@@ -5,9 +5,9 @@
         .module('matheland.controller')
         .controller('TextController', TextController);
 
-    TextController.$inject = ['Difficulty', '$stateParams', 'Forwarder', 'Ticker'];
+    TextController.$inject = ['$state', 'Task'];
 
-    function TextController(Difficulty, $stateParams, Forwarder, Ticker) {
+    function TextController($state, Task) {
         var vm = this;
 
         vm.submit = submit;
@@ -30,14 +30,11 @@
             vm.game.task = task;
             processText(task.text);
             var text = document.getElementById('text');
-            text.addEventListener('mouseup', function(event) {
+            text.addEventListener('mouseup', function() {
                 var selection = window.getSelection();
                 if (selection.rangeCount > 0) {
                     var baseNode = selection.baseNode.parentNode;
                     var extentNode = selection.extentNode.parentNode;
-                    // var baseOut = baseNode.parentNode.getAttribute('id') !== 'text';
-                    // var extentOut = extentNode.parentNode.getAttribute('id') !== 'text';
-                    // if (baseOut || extentOut) return;
                     var base = baseNode.getAttribute('id');
                     base = +(base.split('-').slice(-1)[0]);
                     var extent = extentNode.getAttribute('id');
@@ -163,8 +160,7 @@
 
             if (win) {
                 alert('Toll');
-                console.log($stateParams);
-                Forwarder.forward($stateParams);
+                $state.go(Task.START);
             } else {
                 alert('Nicht so toll');
             }

@@ -24,7 +24,6 @@
                 url: '/functions',
                 templateUrl: 'templates/functions.html',
                 permission: 'functions',
-                params: {'page': null, 'difficulty': null},
                 controller: 'FunctionsController',
                 controllerAs: 'vm'
             })
@@ -40,7 +39,6 @@
                 url: '/text',
                 templateUrl: 'templates/text.html',
                 permission: 'text',
-                params: {'page': null, 'difficulty': null},
                 controller: 'TextController',
                 controllerAs: 'vm'
             });

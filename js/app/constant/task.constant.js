@@ -4,7 +4,8 @@
     var Task = {
         VECTORS: 'vectors',
         FUNCTIONS: 'functions',
-        TEXT: 'text'
+        TEXT: 'text',
+        START: 'start'
     };
 
     angular

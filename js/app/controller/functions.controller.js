@@ -5,7 +5,9 @@
         .module('matheland.controller')
         .controller('FunctionsController', FunctionsController);
 
-    function FunctionsController($stateParams, Forwarder, Ticker, CanvasConfig) {
+    FunctionsController.$inject = ['$state', 'Ticker', 'CanvasConfig', 'Task'];
+
+    function FunctionsController($state, Ticker, CanvasConfig, Task) {
 
         var vm = this;
         vm.submit = submit;
@@ -67,6 +69,12 @@
             stone.y = height;
 
             game.stage.addChild(stone);
+
+            var stone2 = new easel.Shape(stoneGraphics);
+            stone2.x = CanvasConfig.WIDTH - 2 * size;
+            stone2.y = height;
+
+            game.stage.addChild(stone2);
 
             var riverHeight = size / 2;
 
@@ -132,7 +140,6 @@
             setFunction(marioc, coinc);
 
             drawCoordinateSystem(CanvasConfig.WIDTH / 2, CanvasConfig.HEIGHT, STRETCH_FACTOR_X, 1);
-            //drawFunction();
         }
 
         function drawCoordinateSystem(cx, cy, xf, yf) {
@@ -325,17 +332,12 @@
             if (result.win) {
                 alert("Glückwunsch! Du hast es geschafft!");
                 Ticker.stop();
-                Forwarder.forward($stateParams);
+                $state.go(Task.VECTORS);
             } else if (!result.marioHit) {
                 alert("An dieser Liane wird sich Mario nicht festhalten können");
             } else if (!result.coinHit) {
                 alert("Mario kann zwar die Liane greifen, verfehlt aber die Münze.");
             }
-            // if (true) {
-            //     Ticker.stop();
-            //     window.alert("gg ez");
-            //     Forwarder.forward($stateParams);
-            // }
         }
     }
 
