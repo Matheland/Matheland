@@ -77,90 +77,99 @@
 
             var maxHeight = height - marioHeight - thickness;
 
-            var stoneHeight = Math.floor(Math.random() * maxHeight);
+            var errorCount = -1;
+            var success;
+            do {
+                errorCount++;
+                if (errorCount > 20) {
+                    alert('Es ist ein Fehler aufgetreten. Bitte die Seite neu laden.');
+                    throw new Error();
+                }
+                var stoneHeight = Math.floor(Math.random() * maxHeight);
 
-            stoneGraphics
-                .moveTo(-thickness, 0)
-                .beginFill('#555555')
-                .lineTo(-thickness, -stoneHeight)
-                .arc(0, -stoneHeight, thickness, Math.PI, 0)
-                .lineTo(thickness, 0)
-                .lineTo(-thickness, 0);
+                stoneGraphics
+                    .moveTo(-thickness, 0)
+                    .beginFill('#555555')
+                    .lineTo(-thickness, -stoneHeight)
+                    .arc(0, -stoneHeight, thickness, Math.PI, 0)
+                    .lineTo(thickness, 0)
+                    .lineTo(-thickness, 0);
 
-            var stone = new easel.Shape(stoneGraphics);
-            stone.x = 2 * size;
-            stone.y = height;
+                var stone = new easel.Shape(stoneGraphics);
+                stone.x = 2 * size;
+                stone.y = height;
 
-            game.stage.addChild(stone);
+                game.stage.addChild(stone);
 
-            var stone2 = new easel.Shape(stoneGraphics);
-            stone2.x = CanvasConfig.WIDTH - 2 * size;
-            stone2.y = height;
+                var stone2 = new easel.Shape(stoneGraphics);
+                stone2.x = CanvasConfig.WIDTH - 2 * size;
+                stone2.y = height;
 
-            game.stage.addChild(stone2);
+                game.stage.addChild(stone2);
 
-            var riverHeight = size / 2;
+                var riverHeight = size / 2;
 
-            var riverGraphics = new easel.Graphics();
+                var riverGraphics = new easel.Graphics();
 
-            riverGraphics
-                .beginFill('#7777aa')
-                .drawRect(0, 0, CanvasConfig.WIDTH, riverHeight);
+                riverGraphics
+                    .beginFill('#7777aa')
+                    .drawRect(0, 0, CanvasConfig.WIDTH, riverHeight);
 
-            var river = new easel.Shape(riverGraphics);
-            river.y = height - riverHeight / 2;
+                var river = new easel.Shape(riverGraphics);
+                river.y = height - riverHeight / 2;
 
-            game.stage.addChild(river);
+                game.stage.addChild(river);
 
-            var marioFitness = Math.floor(0.25 * size);
+                var marioFitness = Math.floor(0.25 * size);
 
-            var marioGraphics = new easel.Graphics();
+                var marioGraphics = new easel.Graphics();
 
-            marioGraphics
-                .beginFill('#dd0000')
-                .drawRect(-marioFitness, 0, 2 * marioFitness, marioHeight);
+                marioGraphics
+                    .beginFill('#dd0000')
+                    .drawRect(-marioFitness, 0, 2 * marioFitness, marioHeight);
 
-            var mario = new easel.Shape(marioGraphics);
-            mario.x = stone.x;
-            mario.y = height - stoneHeight - thickness - marioHeight;
+                var mario = new easel.Shape(marioGraphics);
+                mario.x = stone.x;
+                mario.y = height - stoneHeight - thickness - marioHeight;
 
-            game.stage.addChild(mario);
-            game.objects.mario = mario;
+                game.stage.addChild(mario);
+                game.objects.mario = mario;
 
-            var coinThickness = marioFitness;
-            var coinHeight = marioHeight;
+                var coinThickness = marioFitness;
+                var coinHeight = marioHeight;
 
-            var coinGraphics = new easel.Graphics();
+                var coinGraphics = new easel.Graphics();
 
-            coinGraphics
-                .beginFill('#dddd77')
-                .drawEllipse(-coinThickness, 0, 2 * coinThickness, coinHeight);
+                coinGraphics
+                    .beginFill('#dddd77')
+                    .drawEllipse(-coinThickness, 0, 2 * coinThickness, coinHeight);
 
-            var coin = new easel.Shape(coinGraphics);
-            coin.x = CanvasConfig.WIDTH / 4 + Math.random() * CanvasConfig.WIDTH / 2;
-            var minCoinHeight = riverHeight + marioHeight;
-            coin.y = height - (minCoinHeight + Math.random() * ((height - mario.y) - minCoinHeight - coinHeight / 2));
+                var coin = new easel.Shape(coinGraphics);
+                coin.x = CanvasConfig.WIDTH / 4 + Math.random() * CanvasConfig.WIDTH / 2;
+                var minCoinHeight = riverHeight + marioHeight;
+                coin.y = height - (minCoinHeight + Math.random() * ((height - mario.y) - minCoinHeight - coinHeight / 2));
 
-            game.stage.addChild(coin);
-            game.objects.coin = coin;
+                game.stage.addChild(coin);
+                game.objects.coin = coin;
 
-            var marioc = {
-                x: (mario.x - CanvasConfig.WIDTH / 2) / (size * STRETCH_FACTOR_X),
-                y: (height - mario.y) / size,
-                height: marioHeight / size,
-                width: 2 * marioFitness / size
-            };
-            game.objects.mario.coords = marioc;
+                var marioc = {
+                    x: (mario.x - CanvasConfig.WIDTH / 2) / (size * STRETCH_FACTOR_X),
+                    y: (height - mario.y) / size,
+                    height: marioHeight / size,
+                    width: 2 * marioFitness / size
+                };
+                game.objects.mario.coords = marioc;
 
-            var coinc = {
-                x: (coin.x - CanvasConfig.WIDTH / 2) / (size * STRETCH_FACTOR_X),
-                y: (height - coin.y) / size,
-                height: coinHeight / size,
-                width: 2 * coinThickness / size
-            };
-            game.objects.coin.coords = coinc;
+                var coinc = {
+                    x: (coin.x - CanvasConfig.WIDTH / 2) / (size * STRETCH_FACTOR_X),
+                    y: (height - coin.y) / size,
+                    height: coinHeight / size,
+                    width: 2 * coinThickness / size
+                };
+                game.objects.coin.coords = coinc;
 
-            setFunction(marioc, coinc);
+                success = setFunction(marioc, coinc);
+            } while (!success);
 
             drawCoordinateSystem(CanvasConfig.WIDTH / 2, CanvasConfig.HEIGHT, STRETCH_FACTOR_X, 1);
         }
@@ -281,6 +290,7 @@
             var a = deltaY / deltaF;
             var c = head.y - a * Math.pow(head.x, 2);
             console.log(a, c);
+            if (c <= 0.5) return false;
             return {
                 a: a,
                 c: c
@@ -288,7 +298,9 @@
         }
 
         function setFunction(headc, coinc) {
-            game.func = generateFunction(headc, coinc);
+            var func = generateFunction(headc, coinc);
+            game.func = func;
+            return !!func;
         }
 
         function drawFunction(func) {
