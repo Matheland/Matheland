@@ -2,6 +2,9 @@
 
     var DEPENDENCIES = [
         'ui.router',
+        'ngAnimate',
+        'ngTouch',
+        'ui.bootstrap',
         'matheland.run',
         'matheland.service',
         'matheland.constant',

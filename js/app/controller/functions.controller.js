@@ -1,16 +1,39 @@
 (function (easel, tween) {
     'use strict';
 
+
+    angular.module('matheland.controller').controller('ModalInstanceCtrl', function ($uibModalInstance) {
+        var $ctrl = this;
+
+        $ctrl.ok = function () {
+            $uibModalInstance.close();
+        };
+    });
+
     angular
         .module('matheland.controller')
         .controller('FunctionsController', FunctionsController);
 
-    FunctionsController.$inject = ['$state', 'Ticker', 'CanvasConfig', 'Task'];
+    FunctionsController.$inject = ['$state', 'Ticker', 'CanvasConfig', 'Task', '$uibModal'];
 
-    function FunctionsController($state, Ticker, CanvasConfig, Task) {
+    function FunctionsController($state, Ticker, CanvasConfig, Task, $uibModal) {
 
         var vm = this;
         vm.submit = submit;
+
+        vm.openModal = function() {
+            var modalInstance = $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'functionsModal.html',
+                controller: 'ModalInstanceCtrl',
+                controllerAs: '$ctrl'
+            });
+
+            modalInstance.result.then(function () {
+                //
+            });
+        };
 
         var game = {
             objects: {

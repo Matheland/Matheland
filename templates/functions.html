@@ -1,3 +1,16 @@
+<script type="text/ng-template" id="functionsModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Hilfe</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <video controls>
+            <source src="media/functions.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">Schließen</button>
+    </div>
+</script>
 <div class="row">
     <div class="col-md-11 col-md-offset-1 col-xs-offset-1 row">
 
@@ -17,7 +30,7 @@
                     </span>
 
                     <div class="text_hilfebtn">
-                        <button class="buttonAdd">Hilfe</button>
+                        <button class="buttonAdd" ng-click="vm.openModal()">Hilfe</button>
                     </div>
 
                 </div>
