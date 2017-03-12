@@ -437,8 +437,6 @@
                         finalCoordinates.y = closestCoordinates[1].value;
                     }
 
-                    console.log("Final X:", finalCoordinates.x, "Final Y:", finalCoordinates.y);
-
                     var t = tween
                         .get(game.objects.shell)
                         .to({
