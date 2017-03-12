@@ -330,6 +330,7 @@
 
             // Check if the center of the shell is in the center of the goal
             if (goal.hitTest(position.x, position.y)) {
+                tween.removeAllTweens();
                 Ticker.stop();
                 window.alert("gg ez");
                 Forwarder.forward($stateParams);
@@ -376,7 +377,7 @@
                 var collided = checkCollision(x, y);
 
                 if (collided) {
-                    tween.removeTweens(shell);
+                    tween.removeAllTweens();
                     game.mightCollide = false;
 
                     // Find closest coordinate
