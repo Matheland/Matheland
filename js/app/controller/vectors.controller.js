@@ -299,6 +299,64 @@
             return CanvasConfig.HEIGHT - rawY;
         }
 
+        function drawArrow(targetX, targetY) {
+            var arrow = new easel.Shape();
+            var shell = game.objects.shell;
+
+            arrow.graphics
+                .beginStroke('red')
+                .moveTo(shell.x, shell.y);
+
+            var cmd = arrow.graphics.lineTo(shell.x, shell.y).command;
+
+            var arrowHead = new easel.Shape();
+
+            // Math.pow(18, 2) = Math.pow(x, 2) + Math.pow(x, 2) -> 9 * Math.sqrt(2)
+            arrowHead.graphics
+                .beginStroke('red')
+                .moveTo(-9 * Math.sqrt(2), -9 * Math.sqrt(2))
+                .lineTo(0, 0)
+                .lineTo(-9 * Math.sqrt(2), 9 * Math.sqrt(2));
+
+            arrowHead.x = shell.x;
+            arrowHead.y = shell.y;
+
+            var deltaX = targetX - shell.x;
+            var deltaY = targetY - shell.y;
+
+            if (!deltaY) {
+                arrowHead.rotation = (Math.abs(deltaX) / deltaX > 0) ? 0 : 180;
+            } else if (!deltaX) {
+                arrowHead.rotation = 90 * Math.abs(deltaY) / deltaY;
+            } else {
+                arrowHead.rotation = ((deltaX > 0 && deltaY < 0) ? Math.PI / 2 - Math.atan2(deltaX, deltaY) : Math.atan2(deltaY, deltaX)) * 180 / Math.PI
+            }
+
+            game.stage.addChild(arrow);
+            game.stage.addChild(arrowHead);
+
+            tween
+                .get(arrowHead)
+                .to({
+                        x: targetX,
+                        y: targetY
+                    },
+                    500,
+                    easel.Ease.getPowOut(2.5)
+                );
+
+            tween.get(cmd)
+                .to({
+                        x: targetX,
+                        y: targetY
+                    },
+                    500,
+                    easel.Ease.getPowOut(2.5)
+                );
+
+            game.stage.setChildIndex(game.objects.shell, game.stage.getNumChildren() - 1);
+        }
+
         function submit() {
             var t = tween.get(game.objects.shell);
 
@@ -316,6 +374,8 @@
                     easel.Ease.getPowOut(2.5)
                 )
                 .call(checkWinCondition, [t]);
+
+            drawArrow(targetX, targetY);
 
             game.tween = t;
         }
@@ -446,6 +506,8 @@
                             500,
                             easel.Ease.getPowOut(2.5)
                         );
+
+                    drawArrow(finalCoordinates.x, finalCoordinates.y);
 
                     t.call(checkWinCondition, [t]);
                 }
