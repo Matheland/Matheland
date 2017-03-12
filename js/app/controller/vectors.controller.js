@@ -83,6 +83,8 @@
 
             // ------------------------------------------------------------------------------------------------------ //
 
+            drawCoordinateSystem(0, CanvasConfig.HEIGHT - game.coordinates.yOrigin);
+
             // Create shell
             var shellGraphics = new easel.Graphics();
 
@@ -184,6 +186,117 @@
             game.stage.addChild(game.objects.goal);
 
             game.stage.setChildIndex(game.objects.shell, game.stage.getNumChildren() - 1);
+        }
+
+        function drawCoordinateSystem(cx, cy, xf, yf) {
+            //Prep
+            xf = xf || 1;
+            yf = yf || 1;
+
+            //Init
+            var stage = game.stage;
+            var height = CanvasConfig.HEIGHT;
+            var width = CanvasConfig.WIDTH;
+            var sizeX = Math.floor(CanvasConfig.COORDINATE_SIZE * xf);
+            var sizeY = Math.floor(CanvasConfig.COORDINATE_SIZE * yf);
+            var minX = cx - Math.floor(cx / sizeX) * sizeX;
+            var fakeCY = toRealY(cy);
+            var minY = fakeCY - Math.floor(fakeCY / sizeY) * sizeY;
+            var graphics = {
+                grid: new easel.Graphics(),
+                x: {
+                    main: new easel.Graphics(),
+                    labels: []
+                },
+                y: {
+                    main: new easel.Graphics(),
+                    labels: []
+                }
+            };
+
+            var UD_TICK_LENGTH = 4;
+            var grid = graphics.grid;
+            var mainX = graphics.x.main;
+            var mainY = graphics.y.main;
+            var labelsX = graphics.x.labels;
+            var labelsY = graphics.y.labels;
+            grid.setStrokeStyle(0.75, 'round');
+            mainX.setStrokeStyle(2, 'round');
+            mainY.setStrokeStyle(2, 'round');
+
+            //Grid, Ticks und Labels
+            for (var x = minX; x <= width; x += sizeX) {
+                grid
+                    .beginStroke('#DDD')
+                    .moveTo(x, 0)
+                    .lineTo(x, height)
+                    .endStroke();
+                mainX
+                    .beginStroke('#000')
+                    .moveTo(x, cy + UD_TICK_LENGTH)
+                    .lineTo(x, cy - UD_TICK_LENGTH)
+                    .endStroke();
+                var rx = (x - cx) / sizeX;
+                if (rx == 0) continue;
+                var label = new easel.Text('' + rx, 'bold 14px Arial', '#333');
+                label.x = x + 10;
+                label.y = cy - 20;
+                label.textAlign = 'center';
+                labelsX.push(label);
+            }
+            for (var y = minY; y <= height; y += sizeY) {
+                var realY = toRealY(y);
+                grid
+                    .beginStroke('#DDD')
+                    .moveTo(0, realY)
+                    .lineTo(width, realY)
+                    .endStroke();
+                mainY
+                    .beginStroke('#000')
+                    .moveTo(cx + UD_TICK_LENGTH, realY)
+                    .lineTo(cx - UD_TICK_LENGTH, realY)
+                    .endStroke();
+                var ry = (cy - realY) / sizeY;
+                var label = new easel.Text('' + ry, 'bold 14px Arial', '#333');
+                label.x = cx + 10;
+                label.y = realY - 20;
+                label.textAlign = 'center';
+                labelsY.push(label);
+            }
+
+            //Achsen
+            mainX
+                .beginStroke('#000')
+                .moveTo(0, cy)
+                .lineTo(width, cy)
+                .endStroke();
+            mainY
+                .beginStroke('#000')
+                .moveTo(cx, 0)
+                .lineTo(cx, height)
+                .endStroke();
+
+            //Finish
+            var coordinates = game.objects.coordinates;
+            coordinates.grid = new easel.Shape(graphics.grid);
+            coordinates.x.main = new easel.Shape(graphics.x.main);
+            coordinates.x.labels = graphics.x.labels;
+            coordinates.y.main = new easel.Shape(graphics.y.main);
+            coordinates.y.labels = graphics.y.labels;
+            game.stage.addChild(coordinates.grid);
+            game.stage.addChild(coordinates.x.main);
+            game.stage.addChild(coordinates.y.main);
+
+            for (var i = 0; i < coordinates.x.labels.length; i++) {
+                game.stage.addChild(coordinates.x.labels[i]);
+            }
+            for (var j = 0; j < coordinates.y.labels.length; j++) {
+                game.stage.addChild(coordinates.y.labels[j]);
+            }
+        }
+
+        function toRealY(rawY) {
+            return CanvasConfig.HEIGHT - rawY;
         }
 
         function submit() {
