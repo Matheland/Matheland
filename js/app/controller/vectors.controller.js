@@ -18,7 +18,11 @@
 
         var game = {
             objects: {
-                pipes: []
+                pipes: [],
+                coordinates: {
+                    x: {},
+                    y: {}
+                }
             },
             coordinates: {
                 x: [],
@@ -28,7 +32,8 @@
                 lastSafeCoordinates: null
             },
             mightCollide: false,
-            tween: null
+            tween: null,
+            lastArrowStep: null
         };
 
         init();
@@ -39,7 +44,7 @@
             Ticker.start(game.stage, collisionDetection);
             createBoard();
         }
-        
+
         function createBoard() {
             /*
             The number of obstacles depends on the difficulty of the task.
