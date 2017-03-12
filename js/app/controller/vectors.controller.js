@@ -47,10 +47,10 @@
 
         function createBoard() {
             /*
-            The number of obstacles depends on the difficulty of the task.
-            EASY    -> three obstacles
-            MEDIUM  ->  four obstacles
-            HARD    ->  five obstacles
+             The number of obstacles depends on the difficulty of the task.
+             EASY    -> three obstacles
+             MEDIUM  ->  four obstacles
+             HARD    ->  five obstacles
              */
 
             // var numberOfObstacles = $stateParams.difficulty + 2;
