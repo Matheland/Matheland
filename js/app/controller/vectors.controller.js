@@ -302,12 +302,15 @@
         function submit() {
             var t = tween.get(game.objects.shell);
 
+            var targetX = vm.input.x * CanvasConfig.COORDINATE_SIZE + t.target.x;
+            var targetY = -1 * vm.input.y * CanvasConfig.COORDINATE_SIZE + t.target.y;
+
             game.mightCollide = true;
 
             t
                 .to({
-                        x: vm.input.x * CanvasConfig.COORDINATE_SIZE + t.target.x,
-                        y: vm.input.y * CanvasConfig.COORDINATE_SIZE + t.target.y
+                        x: targetX,
+                        y: targetY
                     },
                     500,
                     easel.Ease.getPowOut(2.5)
