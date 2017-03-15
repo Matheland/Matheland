@@ -3,15 +3,15 @@
             .module('matheland.controller')
             .controller('StartController', StartController);
 
-        StartController.$inject = ['Forwarder'];
+        StartController.$inject = ['$state', 'Task'];
 
-        function StartController(Forwarder) {
+        function StartController($state, Task) {
             var vm = this;
 
             vm.startGame = startGame;
 
             function startGame() {
-                Forwarder.forward();
+                $state.go(Task.FUNCTIONS);
             }
 
         }
