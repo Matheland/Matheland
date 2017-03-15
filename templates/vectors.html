@@ -1,3 +1,16 @@
+<script type="text/ng-template" id="vectorsModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Hilfe</h3>
+    </div>
+    <div class="modal-body video" id="modal-body">
+        <video controls width="1280">
+            <source src="media/vectors.mov" type="video/mp4">
+        </video>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="modal.ok()">Schließen</button>
+    </div>
+</script>
 <div class="row">
     <div class="col-md-10 col-xs-10 col-xs-offset-1 col-md-offset-1">
         <div class="row">
@@ -12,7 +25,7 @@
                         </span>
                         <div class="row">
                             <div class="col-md-3 col-xs-3">
-                                <button class="buttonAdd"> Lösung anzeigen </button>
+                                <button class="buttonAdd" ng-click="vm.openModal()">Hilfe gefällig?</button>
                             </div>
                         </div>
                     </div>

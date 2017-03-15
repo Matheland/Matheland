@@ -5,7 +5,7 @@
         .module('matheland.controller')
         .controller('VectorsController', VectorsController);
 
-    function VectorsController($state, Ticker, CanvasConfig) {
+    function VectorsController($state, Ticker, CanvasConfig, Task, Modal) {
 
         var vm = this;
 
@@ -14,6 +14,12 @@
         vm.input = {
             x: 0,
             y: 0
+        };
+
+        vm.openModal = function() {
+            Modal.open('vectorsModal').then(function() {
+
+            });
         };
 
         var game = {
