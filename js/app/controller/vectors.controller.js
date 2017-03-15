@@ -395,7 +395,7 @@
                 tween.removeAllTweens();
                 Ticker.stop();
                 window.alert("Glückwunsch, du hast es geschafft!");
-                $state.go('text');
+                $state.go(Task.TEXT);
             }
         }
 
