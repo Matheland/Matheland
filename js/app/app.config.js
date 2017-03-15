@@ -6,7 +6,7 @@
     config.$inject = ['Session'];
 
     function config(Session) {
-        Session.initialize();
+        //Session.initialize();
     }
 
 })();
