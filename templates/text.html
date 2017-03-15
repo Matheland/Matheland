@@ -3,7 +3,7 @@
         <h3 class="modal-title" id="modal-title">Hilfe</h3>
     </div>
     <div class="modal-body video" id="modal-body">
-        <video controls width="1280">
+        <video controls width="1280" autoplay>
             <source src="media/text.mp4" type="video/mp4">
         </video>
     </div>
@@ -24,7 +24,7 @@
                         </span>
                         <div class="row">
                             <div class="col-md-3 col-xs-3">
-                                <button class="buttonAdd"> Lösung anzeigen </button>
+                                <button class="buttonAdd" ng-show="vm.mistakeCount >= 3" ng-click="vm.openModal()">Hilfe gefällig?</button>
                             </div>
                         </div>
                     </div>

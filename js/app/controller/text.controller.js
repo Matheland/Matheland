@@ -12,9 +12,10 @@
 
         vm.submit = submit;
         vm.reset = reset;
+        vm.mistakeCount = 0;
 
         vm.openModal = function() {
-            Modal.open('vectorsModal').then(function() {
+            Modal.open('textModal').then(function() {
 
             });
         };
@@ -169,6 +170,7 @@
                 $state.go(Task.START);
             } else {
                 alert('Nicht so toll');
+                vm.mistakeCount++;
             }
         }
 
