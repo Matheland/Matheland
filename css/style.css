@@ -328,5 +328,15 @@ header {
 
 .modal-dialog {
     color: gray;
-    width: auto;
+    width: 1314px;
+}
+
+.modal-body.video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-body.video video {
+    border: 2px solid gray;
 }
