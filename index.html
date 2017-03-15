@@ -8,14 +8,10 @@
 
 </head>
 <body>
-    <header class="row">
+    <header class="row" ng-controller="NavController as nav">
         <div class="col-xs-4 first-xs col-md-4 col-lg-4">
             <div class="box">
-                <button id="SBButton">Speichern&Beenden</button>
-                <a ui-sref="text">Zum Textbeispiel</a>
-                <a ui-sref="vectors">Zum Vectorbeispiel</a>
-                <a ui-sref="functions">Zum Funktionsbeispiel</a>
-                <a ui-sref="start">Zum Start</a>
+                <button id="SBButton" ng-click="nav.goToStart()">Beenden</button>
             </div>
         </div>
         <div class="col-xs-4 col-md-4 col-lg-4">
@@ -40,7 +36,6 @@
     <script src="bower_components/angular-touch/angular-touch.min.js"></script>
     <script src="js/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="js/app/app.js"></script>
-    <script src="js/app/app.config.js"></script>
     <script src="js/app/app.route.js"></script>
     <script src="js/app/run/transition.run.js"></script>
     <script src="js/app/constant/difficulty.constant.js"></script>
@@ -48,6 +43,7 @@
     <script src="js/app/constant/canvasConfig.constant.js"></script>
     <script src="js/app/service/ticker.service.js"></script>
     <script src="js/app/service/modal.service.js"></script>
+    <script src="js/app/controller/nav.controller.js"></script>
     <script src="js/app/controller/text.controller.js"></script>
     <script src="js/app/controller/vectors.controller.js"></script>
     <script src="js/app/controller/start.controller.js"></script>
