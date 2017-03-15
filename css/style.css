@@ -172,11 +172,12 @@ header {
 .vectorsCanvas {
     background-color: mediumseagreen;
 }
+
 .border {
     background-color: darkred;
     width: 550pt;
     height: 240pt;
-    padding: 30px 25px 10px 25px;
+    padding: 30px 25px 0px 25px;
 }
 
 .fontSize {

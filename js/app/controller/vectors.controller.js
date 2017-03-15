@@ -5,7 +5,7 @@
         .module('matheland.controller')
         .controller('VectorsController', VectorsController);
 
-    function VectorsController($stateParams, Forwarder, Ticker, CanvasConfig) {
+    function VectorsController($state, Ticker, CanvasConfig) {
 
         var vm = this;
 
@@ -28,8 +28,12 @@
                 x: [],
                 y: [],
                 xOrigin: 0,
-                yOrigin: 6,
+                yOrigin: 0,
                 lastSafeCoordinates: null
+            },
+            canvas: {
+                height: 288,
+                width: CanvasConfig.WIDTH
             },
             mightCollide: false,
             tween: null,
@@ -53,10 +57,8 @@
              HARD    ->  five obstacles
              */
 
-            // var numberOfObstacles = $stateParams.difficulty + 2;
             var numberOfObstacles = 1 + 2;
 
-            // var pipeMinHeight = 3 - Math.floor($stateParams.difficulty / 3);
             var pipeMinHeight = 3 - Math.floor(1 / 3);
             var coordinateSize = CanvasConfig.COORDINATE_SIZE;
             var yOrigin = game.coordinates.yOrigin;
@@ -83,7 +85,7 @@
 
             // ------------------------------------------------------------------------------------------------------ //
 
-            drawCoordinateSystem(0, CanvasConfig.HEIGHT - game.coordinates.yOrigin);
+            drawCoordinateSystem(0, game.canvas.height - game.coordinates.yOrigin);
 
             // Create shell
             var shellGraphics = new easel.Graphics();
@@ -195,8 +197,8 @@
 
             //Init
             var stage = game.stage;
-            var height = CanvasConfig.HEIGHT;
-            var width = CanvasConfig.WIDTH;
+            var height = game.canvas.height;
+            var width = game.canvas.width;
             var sizeX = Math.floor(CanvasConfig.COORDINATE_SIZE * xf);
             var sizeY = Math.floor(CanvasConfig.COORDINATE_SIZE * yf);
             var minX = cx - Math.floor(cx / sizeX) * sizeX;
@@ -296,7 +298,7 @@
         }
 
         function toRealY(rawY) {
-            return CanvasConfig.HEIGHT - rawY;
+            return game.canvas.height - rawY;
         }
 
         function drawArrow(targetX, targetY) {
@@ -392,8 +394,8 @@
             if (goal.hitTest(position.x, position.y)) {
                 tween.removeAllTweens();
                 Ticker.stop();
-                window.alert("gg ez");
-                Forwarder.forward($stateParams);
+                window.alert("Glückwunsch, du hast es geschafft!");
+                $state.go('text');
             }
         }
 
