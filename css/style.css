@@ -113,6 +113,7 @@ header {
 
 #SBButton {
     margin-left: 30px;
+    margin-top:10px;
     font-family: Arial;
     color: #FFFFFF;
     font-size: 14px;
@@ -178,6 +179,7 @@ header {
     width: 550pt;
     height: 240pt;
     padding: 30px 25px 0px 25px;
+    margin-top: 30px;
 }
 
 .fontSize {
