@@ -5,13 +5,19 @@
         .module('matheland.controller')
         .controller('TextController', TextController);
 
-    TextController.$inject = ['$state', 'Task'];
+    TextController.$inject = ['$state', 'Task', 'Modal'];
 
-    function TextController($state, Task) {
+    function TextController($state, Task, Modal) {
         var vm = this;
 
         vm.submit = submit;
         vm.reset = reset;
+
+        vm.openModal = function() {
+            Modal.open('vectorsModal').then(function() {
+
+            });
+        };
 
         var Importance = {
             POSITIVE: '*',
@@ -19,7 +25,7 @@
         };
 
         var task = {
-            text: '*HIER* ist ein wichtiger Text. _HIER_ allerdings nicht.'
+            text: 'Peach ist in dem *12m* hohen Turm von Bowser ganz oben gefangen. _Mario schreitet zur Hilfe aber dafür muss er Bowser überlisten. Bowser hat einen großen braunen stachligen Panzer an dem Mario vorbeikommen muss, da Peach sonst nicht gerettet werden kann. Bowser selbst ist 3m groß und sein längster Stachel ragt weitere 30cm in die Luft._ Mario entdeckt beim Erkunden der Umgebung in einer Schubkarre *15 verschieden große quadratische* Ziegel mit einem *Gesamtvolumen* von *20m³*. *5* davon sind rot mit einem Volumen von *1m³*. Ein weiteres *Drittel* ist grün und *doppelt* so groß *wie die restlichen blauen*. Wie lautet die Mindestanzahl an Ziegeln die Mario benötigt, um Peach vor Bowser zu retten?'
         };
 
         vm.game = {};
