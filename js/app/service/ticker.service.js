@@ -9,6 +9,7 @@
         var service = this;
 
         var ticker = createjs.Ticker;
+        var lastTick;
 
         service.start = start;
         service.stop = stop;
@@ -24,12 +25,13 @@
                 }
             }
             ticker.framerate = 60;
-            ticker.addEventListener('tick', onTick);
+            ticker.on('tick', onTick);
+            lastTick = onTick;
         }
 
         function stop() {
             ticker._inited = false;
-            ticker.removeAllEventListeners();
+            ticker.off('tick', lastTick);
         }
 
     }
