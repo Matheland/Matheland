@@ -1,37 +1,21 @@
 (function (easel, tween) {
     'use strict';
 
-
-    angular.module('matheland.controller').controller('ModalInstanceCtrl', function ($uibModalInstance) {
-        var $ctrl = this;
-
-        $ctrl.ok = function () {
-            $uibModalInstance.close();
-        };
-    });
-
     angular
         .module('matheland.controller')
         .controller('FunctionsController', FunctionsController);
 
-    FunctionsController.$inject = ['$state', 'Ticker', 'CanvasConfig', 'Task', '$uibModal'];
+    FunctionsController.$inject = ['$state', 'Ticker', 'CanvasConfig', 'Task', 'Modal'];
 
-    function FunctionsController($state, Ticker, CanvasConfig, Task, $uibModal) {
+    function FunctionsController($state, Ticker, CanvasConfig, Task, Modal) {
 
         var vm = this;
         vm.submit = submit;
+        vm.mistakeCount = 0;
 
         vm.openModal = function() {
-            var modalInstance = $uibModal.open({
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'functionsModal.html',
-                controller: 'ModalInstanceCtrl',
-                controllerAs: '$ctrl'
-            });
+            Modal.open('functionsModal').then(function() {
 
-            modalInstance.result.then(function () {
-                //
             });
         };
 
@@ -80,6 +64,15 @@
             var errorCount = -1;
             var success;
             do {
+                game.stage.clear();
+                game.stage.removeAllChildren();
+                game.objects = {
+                    coord: {
+                        x: {},
+                        y: {}
+                    }
+                };
+                game.stage.update();
                 errorCount++;
                 if (errorCount > 20) {
                     alert('Es ist ein Fehler aufgetreten. Bitte die Seite neu laden.');
@@ -360,18 +353,46 @@
             };
         }
 
+        function animateFunction(func) {
+            var ani = tween.get(game.objects.mario, {override:true});
+            func = func || game.func;
+            var PRECISION = 0.2;
+            for (var xrc = -2.66; xrc <= 2.72; xrc += PRECISION) {
+                var xc = Math.round(xrc * 100) / 100;
+                var x = getCoords(STRETCH_FACTOR_X * xc + APEX);
+                var yc = callFunction(func, xc);
+                var y = getCoords(yc, true);
+                x = Math.round(x);
+                y = Math.round(y);
+                ani.to({x: x, y: y}, 100);
+            }
+            return ani.wait(1000);
+        }
+
+        function reset() {
+            setTimeout(function() {
+                game.stage.removeChild(game.objects.line);
+                vm.mistakeCount++;
+            }, 1000);
+        }
+
         function submit() {
             var result = checkWinCondition();
             game.stage.removeChild(game.objects.line);
             drawFunction(vm.input);
             if (result.win) {
-                alert("Glückwunsch! Du hast es geschafft!");
-                Ticker.stop();
-                $state.go(Task.VECTORS);
-            } else if (!result.marioHit) {
-                alert("An dieser Liane wird sich Mario nicht festhalten können");
-            } else if (!result.coinHit) {
-                alert("Mario kann zwar die Liane greifen, verfehlt aber die Münze.");
+                animateFunction(vm.input).call(function() {
+                    alert("Glückwunsch! Du hast es geschafft!");
+                    Ticker.stop();
+                    $state.go(Task.VECTORS);
+                });
+            } else {
+                if (!result.marioHit) {
+                    console.log("An dieser Liane wird sich Mario nicht festhalten können");
+                } else if (!result.coinHit) {
+                    console.log("Mario kann zwar die Liane greifen, verfehlt aber die Münze.");
+                }
+                reset();
             }
         }
     }
