@@ -63,7 +63,7 @@
 
             var errorCount = -1;
             var success;
-            do {
+            //do {
                 game.stage.clear();
                 game.stage.removeAllChildren();
                 game.objects = {
@@ -78,7 +78,7 @@
                     alert('Es ist ein Fehler aufgetreten. Bitte die Seite neu laden.');
                     throw new Error();
                 }
-                var stoneHeight = Math.floor(Math.random() * maxHeight);
+                var stoneHeight = 4 * size;
 
                 stoneGraphics
                     .moveTo(-thickness, 0)
@@ -89,13 +89,13 @@
                     .lineTo(-thickness, 0);
 
                 var stone = new easel.Shape(stoneGraphics);
-                stone.x = 2 * size;
+                stone.x = size;
                 stone.y = height;
 
                 game.stage.addChild(stone);
 
                 var stone2 = new easel.Shape(stoneGraphics);
-                stone2.x = CanvasConfig.WIDTH - 2 * size;
+                stone2.x = CanvasConfig.WIDTH - size;
                 stone2.y = height;
 
                 game.stage.addChild(stone2);
@@ -138,9 +138,9 @@
                     .drawEllipse(-coinThickness, 0, 2 * coinThickness, coinHeight);
 
                 var coin = new easel.Shape(coinGraphics);
-                coin.x = CanvasConfig.WIDTH / 4 + Math.random() * CanvasConfig.WIDTH / 2;
+                coin.x = 16 * size;
                 var minCoinHeight = riverHeight + marioHeight;
-                coin.y = height - (minCoinHeight + Math.random() * ((height - mario.y) - minCoinHeight - coinHeight / 2));
+                coin.y = 4.9 * size;
 
                 game.stage.addChild(coin);
                 game.objects.coin = coin;
@@ -162,7 +162,7 @@
                 game.objects.coin.coords = coinc;
 
                 success = setFunction(marioc, coinc);
-            } while (!success);
+            //} while (!success);
 
             drawCoordinateSystem(CanvasConfig.WIDTH / 2, CanvasConfig.HEIGHT, STRETCH_FACTOR_X, 1);
         }
@@ -357,13 +357,13 @@
             var ani = tween.get(game.objects.mario, {override:true});
             func = func || game.func;
             var PRECISION = 0.2;
-            for (var xrc = -2.66; xrc <= 2.72; xrc += PRECISION) {
+            for (var xrc = -2.66; xrc <= 3; xrc += PRECISION) {
                 var xc = Math.round(xrc * 100) / 100;
                 var x = getCoords(STRETCH_FACTOR_X * xc + APEX);
                 var yc = callFunction(func, xc);
                 var y = getCoords(yc, true);
                 x = Math.round(x);
-                y = Math.round(y);
+                y = Math.round(y) - 18;
                 ani.to({x: x, y: y}, 100);
             }
             return ani.wait(1000);
