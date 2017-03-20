@@ -400,8 +400,10 @@
             if (goal.hitTest(position.x, position.y)) {
                 tween.removeAllTweens();
                 Ticker.stop();
-                window.alert("Glückwunsch, du hast es geschafft!");
-                $state.go(Task.TEXT);
+                Modal.open('winModal').then(function() {
+                    $state.go(Task.TEXT);
+                });
+
             }
         }
 

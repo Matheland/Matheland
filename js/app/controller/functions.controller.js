@@ -382,17 +382,19 @@
             drawFunction(vm.input);
             if (result.win) {
                 animateFunction(vm.input).call(function() {
-                    alert("Glückwunsch! Du hast es geschafft!");
-                    Ticker.stop();
-                    $state.go(Task.VECTORS);
+                    Modal.open('winModal').then(function() {
+                        Ticker.stop();
+                        $state.go(Task.VECTORS);
+                    });
                 });
             } else {
+                var modal;
                 if (!result.marioHit) {
-                    console.log("An dieser Liane wird sich Mario nicht festhalten können");
+                    modal = Modal.open('loseModalm');
                 } else if (!result.coinHit) {
-                    console.log("Mario kann zwar die Liane greifen, verfehlt aber die Münze.");
+                    modal = Modal.open('loseModalc');
                 }
-                reset();
+                modal.then(reset);
             }
         }
     }

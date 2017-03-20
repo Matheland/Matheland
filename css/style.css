@@ -326,9 +326,15 @@ header {
     }
 }
 
+.modal {
+    overflow: hidden;
+}
+
 .modal-dialog {
     color: gray;
-    width: 1314px;
+    width: auto;
+    margin-bottom: 0;
+    font-size: 1.5em;
 }
 
 .modal-body.video {
@@ -339,4 +345,6 @@ header {
 
 .modal-body.video video {
     border: 2px solid gray;
+    width: 100%;
+    max-width: 1280px;
 }

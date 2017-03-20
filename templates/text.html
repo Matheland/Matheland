@@ -11,6 +11,30 @@
         <button class="btn btn-primary" type="button" ng-click="modal.ok()">Schließen</button>
     </div>
 </script>
+<script type="text/ng-template" id="winModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Gratuliere!</h3>
+    </div>
+    <div class="modal-body">
+        Glückwunsch! Du hast es geschafft!
+        <br><br>
+        Damit hast du alle Beispiele absolviert. Versuche dich doch gleich noch einmal an ihnen &#x1F609;
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="modal.ok()">Zurück zum Start</button>
+    </div>
+</script>
+<script type="text/ng-template" id="loseModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Nicht ganz...</h3>
+    </div>
+    <div class="modal-body">
+        Lies dir die Angabe noch einmal genau durch.
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="modal.ok()">Noch einmal versuchen</button>
+    </div>
+</script>
 <div class="row">
     <div class="col-md-10 col-xs-10 col-xs-offset-1 col-md-offset-1">
         <div class="row">
