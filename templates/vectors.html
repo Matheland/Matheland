@@ -22,38 +22,38 @@
         <button class="btn btn-primary" type="button" ng-click="modal.ok()">Weiter zum nächsten Beispiel</button>
     </div>
 </script>
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                <h1 class="headline">Panzer-Minigolf</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <h1 class="headline">Panzer-Minigolf</h1>
 
                 <span class="fontSize">
                     Achtung! Du musst den Panzer in das Loch schießen!
                     Verwende dabei dein Wissen von Vektoren und schieße mit den Koordinaten X und Y den Panzer ins Loch! Das Eingabefeld dafür findest zu hier gleich rechts!
                     Wenn du gegen ihn die klebrige Wand schießt prallt er nur ganz wenig ab, also pass auf!
                 </span>
-                <div class="button-box">
-                    <button class="buttonAdd" ng-click="vm.openModal()">Hilfe gefällig?</button>
+            <div class="button-box">
+                <button class="buttonAdd" ng-click="vm.openModal()">Hilfe gefällig?</button>
+            </div>
+        </div>
+
+
+
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 input-box">
+            <form ng-submit="vm.submit()">
+                <div class="col-xl-6 col-lg-12 col-md-12 value-box">
+                    <label for="inputX" class="fontSize">X-Wert:</label>
+                    <input id="inputX" type="number" ng-model="vm.input.x" ng-value="vm.input.x" required>
                 </div>
-            </div>
+                <div class="col-xl-6 col-lg-12 col-md-12 value-box">
+                    <label for="inputY" class="fontSize">Y-Wert:</label>
+                    <input id="inputY" type="number" ng-model="vm.input.y" ng-value="vm.input.y" required>
+                </div>
 
+                <button type="submit" class="buttonAdd">Zeichnen</button>
+            </form>
 
-
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 input-box">
-                <form ng-submit="vm.submit()">
-                    <div class="col-xl-6 col-lg-12 col-md-12 value-box">
-                        <label for="inputX" class="fontSize">X-Wert:</label>
-                        <input id="inputX" type="number" ng-model="vm.input.x" ng-value="vm.input.x" required>
-                    </div>
-                    <div class="col-xl-6 col-lg-12 col-md-12 value-box">
-                        <label for="inputY" class="fontSize">Y-Wert:</label>
-                        <input id="inputY" type="number" ng-model="vm.input.y" ng-value="vm.input.y" required>
-                    </div>
-
-                    <button type="submit" class="buttonAdd">Zeichnen</button>
-                </form>
-
-            </div>
+        </div>
 
         <div class="row">
             <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6">
@@ -63,3 +63,4 @@
             </div>
         </div>
     </div>
+</div>
