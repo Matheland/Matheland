@@ -309,6 +309,16 @@ header {
     height: 50px;
     overflow: scroll;
 }
+.button-box{
+    text-align: center;
+}
+.input-box{
+    text-align: center;
+    padding-top: 3rem;
+}
+.value-box{
+    margin-bottom: 1rem;
+}
 @media (min-width: 768px) {
     .modal-dialog {
         width: 600px;
@@ -331,7 +341,9 @@ header {
 .modal {
     overflow: hidden;
 }
-
+.border-box{
+    text-align: center;
+}
 .modal-dialog {
     color: gray;
     width: auto;
