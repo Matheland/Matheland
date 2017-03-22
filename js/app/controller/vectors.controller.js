@@ -415,7 +415,7 @@
                 x <= game.coordinates.xOrigin + 1 ||
                 y <= game.coordinates.yOrigin + 1 ||
                 x > game.coordinates.x[game.coordinates.x.length - 1] + CanvasConfig.COORDINATE_SIZE ||
-                y > game.coordinates.y[game.coordinates.y.length - 1] + CanvasConfig.COORDINATE_SIZE
+                y >= game.coordinates.y[game.coordinates.y.length - 1] + CanvasConfig.COORDINATE_SIZE
             ) {
                 return true;
             } else {
