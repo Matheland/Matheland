@@ -337,6 +337,12 @@ header {
         width: 300px;
     }
 }
+@media (max-width: 768px) {
+    body{
+        padding-left: 1rem;
+    }
+
+}
 @media (min-width: 992px) {
     .modal-lg {
         width: 900px;

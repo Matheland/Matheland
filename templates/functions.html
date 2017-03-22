@@ -57,11 +57,11 @@
                 Notwendige Werte kannst du aus der Skizze entnehmen.
             </span>
             <div class="button-box">
-                <button class="buttonAdd" ng-show="vm.mistakeCount >= 3" ng-click="vm.openModal()">Hilfe gefällig?</button>
+                <button class="buttonAdd" ng-click="vm.openModal()">Hilfe gefällig?</button>
             </div>
-        </div>
+    </div>
 
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 input-box">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 input-box">
             <form name="functionsForm" novalidate ng-submit="vm.submit()">
                 <div class="col-xl-6 col-lg-12 col-md-12 value-box">
                     <label for="inputA" class="fontSize">A:</label>
@@ -78,7 +78,7 @@
 
         </div>
     <div class="row">
-        <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6">
+        <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-6">
             <div class="function-box">
                 <canvas id="canvas" width="720" height="300"></canvas>
             </div>
@@ -86,3 +86,4 @@
     </div>
 </div>
 </div>
+<!-- ng-show="vm.mistakeCount >= 3" ng-show für Hilfe Button-->
