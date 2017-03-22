@@ -181,6 +181,11 @@ header {
     padding: 30px 25px 0px 25px;
     margin-top: 30px;
 }
+.function-box{
+
+    padding: 30px 25px 0px 25px;
+    margin-top: 30px;
+}
 
 .fontSize {
     font-size: 20pt;
@@ -309,6 +314,16 @@ header {
     height: 50px;
     overflow: scroll;
 }
+.button-box{
+    text-align: center;
+}
+.input-box{
+    text-align: center;
+    padding-top: 3rem;
+}
+.value-box{
+    margin-bottom: 1rem;
+}
 @media (min-width: 768px) {
     .modal-dialog {
         width: 600px;
@@ -322,6 +337,12 @@ header {
         width: 300px;
     }
 }
+@media (max-width: 768px) {
+    body{
+        padding-left: 1rem;
+    }
+
+}
 @media (min-width: 992px) {
     .modal-lg {
         width: 900px;
@@ -331,7 +352,9 @@ header {
 .modal {
     overflow: hidden;
 }
-
+.border-box{
+    text-align: center;
+}
 .modal-dialog {
     color: gray;
     width: auto;
