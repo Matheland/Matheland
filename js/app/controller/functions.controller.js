@@ -13,12 +13,18 @@
         vm.submit = submit;
         vm.mistakeCount = 0;
 
+        /**
+         * Opens the modal containing the tutorial video.
+         */
         vm.openModal = function() {
             Modal.open('functionsModal').then(function() {
 
             });
         };
 
+        /**
+         * Holds all information about the current game state.
+         */
         var game = {
             objects: {
                 coord: {
@@ -32,6 +38,9 @@
             }
         };
 
+        /**
+         * Contains the binding fields used in the view.
+         */
         vm.input = {
             a: 1,
             c: 0
@@ -42,6 +51,9 @@
 
         init();
 
+        /**
+         * Initializes the game stage.
+         */
         function init() {
             game.stage = new easel.Stage(CanvasConfig.ID);
 
@@ -49,6 +61,9 @@
             createBoard();
         }
 
+        /**
+         * Draws all graphics on the game board.
+         */
         function createBoard() {
             var stoneGraphics = new easel.Graphics();
 
@@ -167,6 +182,13 @@
             drawCoordinateSystem(CanvasConfig.WIDTH / 2, CanvasConfig.HEIGHT, STRETCH_FACTOR_X, 1);
         }
 
+        /**
+         * Draws the main virtual coordinate system of the game board.
+         * @param cx the x coordinate of the origin (0|0)
+         * @param cy the y coordinate of the origin (0|0)
+         * @param xf the stretch factor along the x axis
+         * @param yf the stretch factor along the y axis
+         */
         function drawCoordinateSystem(cx, cy, xf, yf) {
             //Prep
             xf = xf || 1;
@@ -273,10 +295,22 @@
             }
         }
 
+        /**
+         * Converts a y coordinate of a negative y axis into one of a positive y axis.
+         * @param rawY the y coordinate on the negative y axis
+         * @returns {number} the y coordinate of the positive y axis
+         */
         function toRealY(rawY) {
             return CanvasConfig.HEIGHT - rawY;
         }
 
+        /**
+         * Generates a new quadratic function that will go thorugh the two provided points.
+         * @param head the coordinates of Mario's head
+         * @param coin the coordinates of the coin
+         * @returns {{a: number, c: number}} the coefficients of the generated quadratic function or false if the
+         * generated function is invalid
+         */
         function generateFunction(head, coin) {
             var deltaY = head.y - coin.y;
             var deltaF = Math.pow(head.x, 2) - Math.pow(coin.x, 2);
@@ -290,12 +324,22 @@
             };
         }
 
+        /**
+         * Updates the game state with a newly generated function going through the given points.
+         * @param headc the coordinates of Mario's head
+         * @param coinc the coordinates of the coin
+         * @returns {boolean} true if the generated function is valid, false otherwise
+         */
         function setFunction(headc, coinc) {
             var func = generateFunction(headc, coinc);
             game.func = func;
             return !!func;
         }
 
+        /**
+         * Draws the function using the coefficients provided.
+         * @param func {{a: number, c: number}} function coefficients or nothing if the game state function should be used
+         */
         function drawFunction(func) {
             func = func || game.func;
             var RANGE_START = 0;
@@ -320,6 +364,12 @@
             game.objects.line = line;
         }
 
+        /**
+         * Converts virtual coordinates into real pixel canvas coordinates.
+         * @param v a set of coordinates in the virtual coordinate system
+         * @param negative whether the y axis of the given coordinates is on the negative y axis and should be converted
+         * @returns {number} pixel coordinates
+         */
         function getCoords(v, negative) {
             if (negative) {
                 var yCoords = CanvasConfig.HEIGHT / CanvasConfig.COORDINATE_SIZE;
@@ -328,10 +378,20 @@
             return v * CanvasConfig.COORDINATE_SIZE;
         }
 
+        /**
+         * Returns the value of the given function at position x.
+         * @param func the function to use
+         * @param x the position to use
+         * @returns {number} the y value at position x of function func
+         */
         function callFunction(func, x) {
             return func.a * Math.pow(x, 2) + func.c;
         }
 
+        /**
+         * Checks whether the player's input was correct and what objects their function missed.
+         * @returns {*} whether the player was correct and what objects were missed
+         */
         function checkWinCondition() {
             var input = vm.input;
 
@@ -353,6 +413,11 @@
             };
         }
 
+        /**
+         * Animates Mario along the player's function's path.
+         * @param func the function according to player input
+         * @returns {Tween} a tween that finishes after the animation concludes
+         */
         function animateFunction(func) {
             var ani = tween.get(game.objects.mario, {override:true});
             func = func || game.func;
@@ -369,6 +434,9 @@
             return ani.wait(1000);
         }
 
+        /**
+         * Removes the drawn player function from the board.
+         */
         function reset() {
             setTimeout(function() {
                 game.stage.removeChild(game.objects.line);
@@ -376,6 +444,9 @@
             }, 1000);
         }
 
+        /**
+         * Resolves player input.
+         */
         function submit() {
             var result = checkWinCondition();
             game.stage.removeChild(game.objects.line);
