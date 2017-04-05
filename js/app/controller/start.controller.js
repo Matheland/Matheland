@@ -10,6 +10,9 @@
 
             vm.startGame = startGame;
 
+            /**
+             * Starts the awesome game
+             */
             function startGame() {
                 $state.go(Task.FUNCTIONS);
             }
