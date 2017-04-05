@@ -14,17 +14,28 @@
         vm.reset = reset;
         vm.mistakeCount = 0;
 
+        /**
+         * Opens the modal containing the tutorial video.
+         */
         vm.openModal = function() {
             Modal.open('textModal').then(function() {
 
             });
         };
 
+        /**
+         * Determines what characters should be used to identify important sections of the task text.
+         * @type {{POSITIVE: string, NEGATIVE: string}} the identification characters
+         */
         var Importance = {
             POSITIVE: '*',
             NEGATIVE: '_'
         };
 
+        /**
+         * The current task.
+         * @type {{text: string}}
+         */
         var task = {
             text: 'Peach ist in dem *12m* hohen Turm von Bowser ganz oben gefangen. _Mario schreitet zur Hilfe aber dafür muss er Bowser überlisten. Bowser hat einen großen braunen stachligen Panzer an dem Mario vorbeikommen muss, da Peach sonst nicht gerettet werden kann. Bowser selbst ist 3m groß und sein längster Stachel ragt weitere 30cm in die Luft._ Mario entdeckt beim Erkunden der Umgebung in einer Schubkarre *15* verschieden große *würfelförmige* Ziegel mit einem *Gesamtvolumen* von *20m³*. *5* davon sind rot mit einem Volumen von *1m³*. Ein weiteres *Drittel* ist grün und *doppelt* so groß *wie die restlichen blauen*. Wie lautet die Mindestanzahl an Ziegeln die Mario benötigt, um Peach vor Bowser zu retten?'
         };
@@ -33,6 +44,9 @@
 
         init();
 
+        /**
+         * Initializes the game board.
+         */
         function init() {
             vm.game.task = task;
             processText(task.text);
@@ -57,6 +71,9 @@
             });
         }
 
+        /**
+         * Resets all characters and scans existing dom character elements.
+         */
         function remark() {
             for (var i = 0; i < vm.game.marked.length; i++) {
                 var element = angular.element(document.getElementById('text-' + i));
@@ -77,6 +94,9 @@
             clearSelection();
         }
 
+        /**
+         * Clears the current browser selection.
+         */
         function clearSelection() {
             if (window.getSelection) {
                 if (window.getSelection().empty) {  // Chrome
@@ -89,11 +109,18 @@
             }
         }
 
+        /**
+         * Resets the entire game.
+         */
         function reset() {
             processText(task.text);
             remark();
         }
 
+        /**
+         * Analyzes the given text and extracts important sections.
+         * @param text
+         */
         function processText(text) {
             var displayText = "";
             var offset = 0;
@@ -140,6 +167,9 @@
             };
         }
 
+        /**
+         * Resolves player input.
+         */
         function submit() {
             var win = true;
             var game = vm.game;
