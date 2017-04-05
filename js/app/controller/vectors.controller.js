@@ -11,17 +11,26 @@
 
         vm.submit = submit;
 
+        /**
+         * Values for x and y axis movement passed by input elements
+         */
         vm.input = {
             x: 0,
             y: 0
         };
 
+        /**
+         * Opens the model containing the tutorial video
+         */
         vm.openModal = function() {
             Modal.open('vectorsModal').then(function() {
 
             });
         };
 
+        /**
+         * The game object containing various configuration and sub-objects, e.g. game elements like pipes
+         */
         var game = {
             objects: {
                 pipes: [],
@@ -48,6 +57,9 @@
 
         init();
 
+        /**
+         * Initiates the game by creating a new stage object, starting the Ticker service and drawing the game board
+         */
         function init() {
             game.stage = new easel.Stage(CanvasConfig.ID);
 
@@ -55,15 +67,11 @@
             createBoard();
         }
 
+        /**
+         * Draws the game board
+         */
         function createBoard() {
-            /*
-             The number of obstacles depends on the difficulty of the task.
-             EASY    -> three obstacles
-             MEDIUM  ->  four obstacles
-             HARD    ->  five obstacles
-             */
-
-            var numberOfObstacles = 1 + 2;
+            var numberOfObstacles = 0 + 1 + 2;
 
             var pipeMinHeight = 3 - Math.floor(1 / 3);
             var coordinateSize = CanvasConfig.COORDINATE_SIZE;
@@ -108,6 +116,7 @@
 
             var shell = new easel.Shape(shellGraphics);
 
+            // Set boundaries of shell for collision detection
             shell.setBounds(
                 -coordinateSize,
                 -coordinateSize,
@@ -196,6 +205,14 @@
             game.stage.setChildIndex(game.objects.shell, game.stage.getNumChildren() - 1);
         }
 
+        /**
+         * Draws the grid system for the game board
+         *
+         * @param cx
+         * @param cy
+         * @param xf
+         * @param yf
+         */
         function drawCoordinateSystem(cx, cy, xf, yf) {
             //Prep
             xf = xf || 1;
@@ -307,6 +324,12 @@
             return game.canvas.height - rawY;
         }
 
+        /**
+         * Draws an arrow from the starting point to the target position of the shell
+         *
+         * @param targetX
+         * @param targetY
+         */
         function drawArrow(targetX, targetY) {
             var arrow = new easel.Shape();
             var shell = game.objects.shell;
@@ -315,6 +338,7 @@
                 .beginStroke('red')
                 .moveTo(shell.x, shell.y);
 
+            // Store the command to animate the drawing of the line
             var cmd = arrow.graphics.lineTo(shell.x, shell.y).command;
 
             var arrowHead = new easel.Shape();
@@ -365,6 +389,9 @@
             game.stage.setChildIndex(game.objects.shell, game.stage.getNumChildren() - 1);
         }
 
+        /**
+         * Moves the shell to the target position
+         */
         function submit() {
             var t = tween.get(game.objects.shell);
 
@@ -373,6 +400,7 @@
 
             game.mightCollide = true;
 
+            // Move the shell and check the win condition afterwards
             t
                 .to({
                         x: targetX,
@@ -385,9 +413,14 @@
 
             drawArrow(targetX, targetY);
 
+            // Store the public tween object
             game.tween = t;
         }
 
+        /**
+         * Checks if the user hit the goal
+         * @param t The Tween object that stores the current movement
+         */
         function checkWinCondition(t) {
             game.mightCollide = false;
             t.removeAllEventListeners();
@@ -407,6 +440,12 @@
             }
         }
 
+        /**
+         * Checks if the given coordinates collide with any given stage object
+         * @param x
+         * @param y
+         * @returns {boolean} true if a collision was detected, else false
+         */
         function checkCollision(x, y) {
             x = Math.ceil(x);
             y = Math.ceil(y);
@@ -417,6 +456,7 @@
                 x > game.coordinates.x[game.coordinates.x.length - 1] + CanvasConfig.COORDINATE_SIZE ||
                 y >= game.coordinates.y[game.coordinates.y.length - 1] + CanvasConfig.COORDINATE_SIZE
             ) {
+                // Object collided with walls
                 return true;
             } else {
                 for (var i = 0; i < game.objects.pipes.length; i++) {
@@ -427,6 +467,7 @@
                     pt.y = !pt.y ? pt.y : pt.y - 1;
 
                     if (pipe.hitTest(pt.x, pt.y)) {
+                        // Object collided with a pipe
                         return true;
                     }
                 }
@@ -435,6 +476,10 @@
             return false;
         }
 
+        /**
+         * Monitors the movement of the shell, checks for possible collisions and re-applies the movement of the shell
+         * accordingly
+         */
         function collisionDetection() {
             if (game.mightCollide) {
                 var shell = game.objects.shell;
@@ -481,6 +526,7 @@
                         }
                     }
 
+                    // Check if new coordinates would collide as well
                     if (checkCollision(closestCoordinates[0].value, closestCoordinates[1].value)) {
                         var yMovementOnly = oldTweenSteps.p1.x == oldTweenSteps.p0.x;
                         var xMovementOnly = oldTweenSteps.p1.y == oldTweenSteps.p0.y;
@@ -508,6 +554,7 @@
                         finalCoordinates.y = closestCoordinates[1].value;
                     }
 
+                    // Move shell to the new position
                     var t = tween
                         .get(game.objects.shell)
                         .to({
@@ -518,8 +565,10 @@
                             easel.Ease.getPowOut(2.5)
                         );
 
+                    // Redraw the arrow
                     drawArrow(finalCoordinates.x, finalCoordinates.y);
 
+                    // Check if the user won the game after the tween has finished
                     t.call(checkWinCondition, [t]);
                 }
             }
